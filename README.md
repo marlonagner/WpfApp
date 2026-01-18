@@ -6,13 +6,16 @@
 ### 🔧 Pré-requisitos
 - Windows 10 ou superior  
 - .NET Framework **4.6 ou 4.8**  
-  https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
+
+      https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
   
-- IDE **Visual Studio Community**  <br />
-  https://visualstudio.microsoft.com/pt-br/vs/community/  <br />
+- IDE **Visual Studio Community**
+  
+             https://visualstudio.microsoft.com/pt-br/vs/community/  
   **ou**
-- **JetBrains Rider**  
-  https://www.jetbrains.com/pt-br/rider/download/?section=windows
+- **JetBrains Rider**
+   
+       https://www.jetbrains.com/pt-br/rider/download/?section=windows
 
   ## 📦 Dependências
 
@@ -21,16 +24,17 @@
   
       winget install Microsoft.DotNet.Framework.DeveloperPack_4 --version 4.8
 
-   <br />
+
    Newtonsoft.Json**
-      https://www.nuget.org/packages/newtonsoft.json/ <br />
+
+         https://www.nuget.org/packages/newtonsoft.json/ 
 
      Caso Prefira baixar Via Terminal:
-    <br />
+
     
       dotnet add package Newtonsoft.Json --version 13.0.4 
- <br />
-   Utilizado para serialização e desserialização dos dados em JSON.
+
+  O pacote é utilizado para serialização e desserialização dos dados em JSON.
   
 
 #### ▶️ Passos para execução
@@ -43,12 +47,8 @@
 
 Restaure as dependências:
 
-dotnet restore
+     dotnet restore
 
-Caso necessário, instale o pacote NuGet:
-
-Newtonsoft.Json
-https://www.nuget.org/packages/newtonsoft.json/
 
 Execute o projeto pela IDE
 ---
