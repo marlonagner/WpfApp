@@ -1,0 +1,56 @@
+[
+  {
+    "Id": 1,
+    "Nome": "BENNER",
+    "Codigo": "A1",
+    "Valor": 5000.0
+  },
+  {
+    "Id": 2,
+    "Nome": "APROVACAO",
+    "Codigo": "2",
+    "Valor": 10.0000
+  },
+  {
+    "Id": 3,
+    "Nome": "ALEGRIA",
+    "Codigo": "3",
+    "Valor": 5000000000.0
+  },
+  {
+    "Id": 4,
+    "Nome": "BURGUI",
+    "Codigo": "4",
+    "Valor": 1000.0
+  },
+  {
+    "Id": 5,
+    "Nome": "MARLON",
+    "Codigo": "5",
+    "Valor": 5000.0
+  },
+  {
+    "Id": 6,
+    "Nome": "LIVRO",
+    "Codigo": "6",
+    "Valor": 5000.0
+  },
+  {
+    "Id": 7,
+    "Nome": "BACON",
+    "Codigo": "6",
+    "Valor": 200.0
+  },
+  {
+    "Id": 8,
+    "Nome": "GAME",
+    "Codigo": "7",
+    "Valor": 1.0
+  },
+  {
+    "Id": 9,
+    "Nome": "COFFEE",
+    "Codigo": "9",
+    "Valor": 10.00
+  }
+]

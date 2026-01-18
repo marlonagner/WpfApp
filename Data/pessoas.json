@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 1,
+    "Nome": "GUITO",
+    "Cpf": "74185296396",
+    "Endereco": "INDUSTRIAS"
+  },
+  {
+    "Id": 2,
+    "Nome": "BENNER",
+    "Cpf": "12345678912",
+    "Endereco": "UEM"
+  },
+  {
+    "Id": 3,
+    "Nome": "PUG",
+    "Cpf": "98765432198",
+    "Endereco": "INDUSTRIAS"
+  },
+  {
+    "Id": 4,
+    "Nome": "PUGA",
+    "Cpf": "98765432145",
+    "Endereco": "CASA"
+  },
+  {
+    "Id": 5,
+    "Nome": "IZADORA",
+    "Cpf": "98765432145",
+    "Endereco": "BENNER"
+  },
+  {
+    "Id": 6,
+    "Nome": "LARISSA",
+    "Cpf": "32165498745",
+    "Endereco": "SAOSILVESTRE"
+  }
+]

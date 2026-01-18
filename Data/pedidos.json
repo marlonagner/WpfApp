@@ -1,0 +1,336 @@
+[
+  {
+    "Id": 1,
+    "Pessoa": {
+      "Id": 1,
+      "Nome": "MARLON",
+      "Cpf": "36729509805",
+      "Endereco": "INDUSTRIAS"
+    },
+    "TotalPedidoTexto": "R$ 5.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 1,
+          "Nome": "BENNER",
+          "Codigo": "A1",
+          "Valor": 5000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 5000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T17:42:58.6509511-03:00",
+    "FormaPagamento": 0,
+    "Status": 1,
+    "ResumoProdutos": "BENNER x1"
+  },
+  {
+    "Id": 2,
+    "Pessoa": {
+      "Id": 1,
+      "Nome": "MARLON",
+      "Cpf": "36729509805",
+      "Endereco": "INDUSTRIAS"
+    },
+    "TotalPedidoTexto": "R$ 25.010,00",
+    "QtdItens": 2,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 2,
+          "Nome": "APROVACAO",
+          "Codigo": "2",
+          "Valor": 10.0000
+        },
+        "Quantidade": 1,
+        "Subtotal": 10.0000
+      },
+      {
+        "Produto": {
+          "Id": 1,
+          "Nome": "BENNER",
+          "Codigo": "A1",
+          "Valor": 5000.0
+        },
+        "Quantidade": 5,
+        "Subtotal": 25000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T17:58:29.3488789-03:00",
+    "FormaPagamento": 3,
+    "Status": 1,
+    "ResumoProdutos": "APROVACAO x1; BENNER x5"
+  },
+  {
+    "Id": 3,
+    "Pessoa": {
+      "Id": 2,
+      "Nome": "BENNER",
+      "Cpf": "12345678912",
+      "Endereco": "UEM"
+    },
+    "TotalPedidoTexto": "R$ 5.000.000.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 3,
+          "Nome": "ALEGRIA",
+          "Codigo": "3",
+          "Valor": 5000000000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 5000000000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T18:01:00.8783661-03:00",
+    "FormaPagamento": 2,
+    "Status": 1,
+    "ResumoProdutos": "ALEGRIA x1"
+  },
+  {
+    "Id": 4,
+    "Pessoa": {
+      "Id": 4,
+      "Nome": "PUGA",
+      "Cpf": "98765432145",
+      "Endereco": "CASA"
+    },
+    "TotalPedidoTexto": "R$ 1.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 4,
+          "Nome": "BURGUI",
+          "Codigo": "4",
+          "Valor": 1000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 1000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T18:24:05.6230266-03:00",
+    "FormaPagamento": 0,
+    "Status": 1,
+    "ResumoProdutos": "BURGUI x1"
+  },
+  {
+    "Id": 5,
+    "Pessoa": {
+      "Id": 5,
+      "Nome": "IZADORA",
+      "Cpf": "98765432145",
+      "Endereco": "BENNER"
+    },
+    "TotalPedidoTexto": "R$ 5.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 5,
+          "Nome": "MARLON",
+          "Codigo": "5",
+          "Valor": 5000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 5000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T18:29:22.115229-03:00",
+    "FormaPagamento": 0,
+    "Status": 1,
+    "ResumoProdutos": "MARLON x1"
+  },
+  {
+    "Id": 6,
+    "Pessoa": {
+      "Id": 2,
+      "Nome": "BENNER",
+      "Cpf": "12345678912",
+      "Endereco": "UEM"
+    },
+    "TotalPedidoTexto": "R$ 5.000.000.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 3,
+          "Nome": "ALEGRIA",
+          "Codigo": "3",
+          "Valor": 5000000000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 5000000000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T18:53:39.9745679-03:00",
+    "FormaPagamento": 1,
+    "Status": 1,
+    "ResumoProdutos": "ALEGRIA x1"
+  },
+  {
+    "Id": 7,
+    "Pessoa": {
+      "Id": 1,
+      "Nome": "MARLON",
+      "Cpf": "36729509805",
+      "Endereco": "INDUSTRIAS"
+    },
+    "TotalPedidoTexto": "R$ 1.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 4,
+          "Nome": "BURGUI",
+          "Codigo": "4",
+          "Valor": 1000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 1000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T18:57:23.7406865-03:00",
+    "FormaPagamento": 3,
+    "Status": 1,
+    "ResumoProdutos": "BURGUI x1"
+  },
+  {
+    "Id": 8,
+    "Pessoa": {
+      "Id": 1,
+      "Nome": "MARLON",
+      "Cpf": "36729509805",
+      "Endereco": "INDUSTRIAS"
+    },
+    "TotalPedidoTexto": "R$ 40.000.000.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 3,
+          "Nome": "ALEGRIA",
+          "Codigo": "3",
+          "Valor": 5000000000.0
+        },
+        "Quantidade": 8,
+        "Subtotal": 40000000000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T19:03:14.3095994-03:00",
+    "FormaPagamento": 3,
+    "Status": 1,
+    "ResumoProdutos": "ALEGRIA x8"
+  },
+  {
+    "Id": 9,
+    "Pessoa": {
+      "Id": 4,
+      "Nome": "PUGA",
+      "Cpf": "98765432145",
+      "Endereco": "CASA"
+    },
+    "TotalPedidoTexto": "R$ 5.000.000.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 3,
+          "Nome": "ALEGRIA",
+          "Codigo": "3",
+          "Valor": 5000000000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 5000000000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T19:32:24.9662893-03:00",
+    "FormaPagamento": 1,
+    "Status": 1,
+    "ResumoProdutos": "ALEGRIA x1"
+  },
+  {
+    "Id": 10,
+    "Pessoa": {
+      "Id": 6,
+      "Nome": "LARISSA",
+      "Cpf": "32165498745",
+      "Endereco": "SAOSILVESTRE"
+    },
+    "TotalPedidoTexto": "R$ 10.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 6,
+          "Nome": "LIVRO",
+          "Codigo": "6",
+          "Valor": 5000.0
+        },
+        "Quantidade": 2,
+        "Subtotal": 10000.0
+      }
+    ],
+    "DataVenda": "2026-01-17T19:39:47.9935424-03:00",
+    "FormaPagamento": 3,
+    "Status": 1,
+    "ResumoProdutos": "LIVRO x2"
+  },
+  {
+    "Id": 11,
+    "Pessoa": {
+      "Id": 1,
+      "Nome": "GUITO",
+      "Cpf": "74185296396",
+      "Endereco": "INDUSTRIAS"
+    },
+    "TotalPedidoTexto": "R$ 200,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 7,
+          "Nome": "BACON",
+          "Codigo": "6",
+          "Valor": 200.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 200.0
+      }
+    ],
+    "DataVenda": "2026-01-18T16:50:13.5912464-03:00",
+    "FormaPagamento": 1,
+    "Status": 1,
+    "ResumoProdutos": "BACON x1"
+  },
+  {
+    "Id": 12,
+    "Pessoa": {
+      "Id": 4,
+      "Nome": "PUGA",
+      "Cpf": "98765432145",
+      "Endereco": "CASA"
+    },
+    "TotalPedidoTexto": "R$ 1.000,00",
+    "QtdItens": 1,
+    "Itens": [
+      {
+        "Produto": {
+          "Id": 4,
+          "Nome": "BURGUI",
+          "Codigo": "4",
+          "Valor": 1000.0
+        },
+        "Quantidade": 1,
+        "Subtotal": 1000.0
+      }
+    ],
+    "DataVenda": "2026-01-18T16:53:34.6567995-03:00",
+    "FormaPagamento": 1,
+    "Status": 1,
+    "ResumoProdutos": "BURGUI x1"
+  }
+]

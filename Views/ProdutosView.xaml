@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="WpfApp.Views.ProdutosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- Status -->
+            <RowDefinition Height="Auto"/>  <!-- Filtros -->
+            <RowDefinition Height="*"/>     <!-- Grid -->
+            <RowDefinition Height="Auto"/>  <!-- Editor -->
+        </Grid.RowDefinitions>
+
+        <!-- Status -->
+        <TextBlock Grid.Row="0"
+                   Text="{Binding DebugStatus}"
+                   Margin="0,0,0,8"/>
+
+        <!-- Filtros -->
+        <GroupBox Grid.Row="1" Header="Filtros" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="Nome"/>
+                    <TextBox Margin="0,4,0,0"
+                             Text="{Binding FiltroNome, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                    <TextBlock Text="Código"/>
+                    <TextBox Margin="0,4,0,0"
+                             Text="{Binding FiltroCodigo, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                    <TextBlock Text="Valor mín."/>
+                    <TextBox Margin="0,4,0,0"
+                             Text="{Binding FiltroMin, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Margin="0,0,10,0">
+                    <TextBlock Text="Valor máx."/>
+                    <TextBox Margin="0,4,0,0"
+                             Text="{Binding FiltroMax, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <Button Grid.Column="4"
+                        Content="Buscar"
+                        Width="90"
+                        Margin="0,18,10,0"
+                        Command="{Binding BuscarCommand}"/>
+
+                <Button Grid.Column="5"
+                        Content="Limpar"
+                        Width="90"
+                        Margin="0,18,0,0"
+                        Command="{Binding LimparFiltrosCommand}"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Grid -->
+        <DataGrid Grid.Row="2"
+                  Margin="0,12,0,12"
+                  ItemsSource="{Binding Produtos}"
+                  SelectedItem="{Binding Selecionado}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*"/>
+                <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="150"/>
+                <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="120"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Editor + ações CRUD -->
+        <GroupBox Grid.Row="3" Header="Cadastro / Edição" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1"
+                         IsReadOnly="True"
+                         Margin="0,4,10,0"
+                         Text="{Binding Id}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Código:" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="3"
+                         Margin="0,4,10,0"
+                         Text="{Binding Codigo, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="Nome:"
+                           VerticalAlignment="Center"
+                           Margin="0,10,0,0"/>
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Margin="0,14,10,0"
+                         Text="{Binding Nome, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           Text="Valor:"
+                           VerticalAlignment="Center"
+                           Margin="0,10,0,0"/>
+                <TextBox Grid.Row="1" Grid.Column="3"
+                         Margin="0,14,10,0"
+                         Text="{Binding ValorTexto, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Orientation="Vertical">
+                    <Button Content="Novo"
+                            Width="110"
+                            Margin="0,4,0,8"
+                            Command="{Binding IncluirCommand}"/>
+
+                    <Button Content="Salvar"
+                            Width="110"
+                            Margin="0,0,0,8"
+                            Command="{Binding SalvarCommand}"/>
+
+                    <Button Content="Excluir"
+                            Width="110"
+                            Command="{Binding ExcluirCommand}"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
