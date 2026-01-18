@@ -8,7 +8,7 @@
    ```bash
    git clone https://github.com/marlonagner/WpfApp.git
 
-   Abra o projeto no Visual Studio ou JetBrains Rider
+Abra o projeto no Visual Studio ou JetBrains Rider
 
    
   ## 📦 Dependências
