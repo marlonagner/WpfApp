@@ -1,218 +1,81 @@
-# WpfApp – Sistema de Pedidos (WPF + JSON)
+# 🖥️ WpfApp – Sistema de Vendas com Cadastro de Pessoas, Produtos e Pedidos
 
-Aplicação desktop desenvolvida em **WPF (.NET Framework)** para gerenciamento de **Pessoas, Produtos e Pedidos**, utilizando persistência em arquivos **JSON** e padrão de projeto **MVVM (Model–View–ViewModel)**.
+## ▶️ Como Executar:
 
-Projeto focado em simplicidade, clareza de código.
+### Pré-requisitos
+- Windows 10 ou superior
+- .NET Framework 4.6 ou 4.8 https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
+- IDE Visual Studio  https://visualstudio.microsoft.com/pt-br/vs/community/
+- ou JetBrains Rider https://www.jetbrains.com/pt-br/rider/download/?section=windows
+  
 
----------------------------------------------------
-📦 Dependências Necessárias
-.NET Framework 4.6+ (ou 4.8)
+### Passos
+1. Clone o repositório:
+2. git clone https://github.com/marlonagner/WpfApp.git
+3.Restaure As Dependencias:
+ dotnet restore
+   
+ 4. Instale os pacotes NuGet baixando a extensão no Rider ou Visual Studio.
+ https://www.nuget.org/packages/newtonsoft.json/
+ 5. Execute o projeto
 
-Newtonsoft.Json (JSON.NET)
+---
 
-Instalação via NuGet:
+## 📦 Dependências
 
-Install-Package Newtonsoft.Json
+- **Newtonsoft.Json**
+- https://www.nuget.org/packages/newtonsoft.json/
+  Utilizado para serialização e desserialização dos dados em JSON.
 
---------------------------------------------------
-Como executar:
+---
 
-abrir a .sln e rodar
+## 📋 Funcionalidades
 
---------------------------------------------------
+### 👤 Pessoas
+- Cadastro de pessoas
+- Edição e exclusão
+- Busca por **nome ou CPF**
+- Persistência em arquivo `pessoas.json`
 
-## 🧱 Padrão de Projeto Utilizado
+### 📦 Produtos
+- Cadastro de produtos
+- Edição e exclusão
+- Filtros por:
+  - Nome
+  - Código
+  - Faixa de valor
+- Persistência em arquivo `produtos.json`
 
-### MVVM – Model View ViewModel
+### 🧾 Pedidos
+- Seleção de pessoa
+- Adição de **múltiplos produtos com quantidade**
+- Cálculo automático do **valor total** (LINQ)
+- Seleção da forma de pagamento
+- Finalização do pedido (bloqueia edição)
+- Listagem de pedidos salvos
+- Busca de pedidos por **nome da pessoa ou Id**
+- Persistência em arquivo `pedidos.json`
 
-O projeto segue o padrão **MVVM**, separando responsabilidades:
+## 🏗️ Arquitetura do Projeto
 
-- **Model**: classes de domínio (dados e regras simples)
-- **View**: telas (XAML)
-- **ViewModel**: lógica de apresentação, comandos e bindings
-- **Services**: acesso a dados (JSON), regras de persistência
+<img width="205" height="608" alt="image" src="https://github.com/user-attachments/assets/f84971cb-2080-4c7e-abc4-6dfdcc7d6892" />
 
-Benefícios:
-- Código mais organizado
-- Facilidade de manutenção
-- Separação clara entre UI e regra de negócio
-- Facilita testes e evolução do sistema
 
--------------------------------------------------------------
 
-## 📁 Estrutura do Projeto
+## 🛠️ Tecnologias Utilizadas
 
-```text
-WpfApp
-│
-├── Data
-│   ├── pessoas.json
-│   ├── produtos.json
-│   └── pedidos.json
-│
-├── Models
-│   ├── Pessoa.cs
-│   ├── Produto.cs
-│   ├── Pedido.cs
-│   ├── PedidoItem.cs
-│   └── Enums
-│       ├── FormaPagamento.cs
-│       └── StatusPedido.cs
-│
-├── Services
-│   ├── JsonRepository.cs
-│   ├── PessoaService.cs
-│   ├── ProdutoService.cs
-│   ├── PedidoService.cs
-│   └── Paths.cs
-│
-├── ViewModels
-│   ├── BaseViewModel.cs
-│   ├── RelayCommand.cs
-│   ├── PessoasViewModel.cs
-│   ├── ProdutosViewModel.cs
-│   └── PedidosViewModel.cs
-│
-├── Views
-│   ├── PessoasView.xaml
-│   ├── ProdutosView.xaml
-│   └── PedidosView.xaml
-│
-├── MainWindow.xaml
-├── App.xaml
-└── README.md
+- C#
+- WPF
+- .NET Framework 4.8
+- Newtonsoft.Json
+- XAML
 
-🧩 Descrição das Pastas e Classes
-📂 Models
+---
 
+## 👨‍💻 Autor
 
+Projeto desenvolvido por **Marlon Agner**.
 
-Botões:
 
-Adicionar
 
-Remover
 
-Total calculado automaticamente
-
-🧪 Persistência de Dados
-
-Os dados são armazenados localmente em arquivos JSON:
-
-Data/
-├── pessoas.json
-├── produtos.json
-└── pedidos.json
----------------------------------------------------------
-
-📂 Views (Abas da aplicação)
-👤 Aba Pessoas
-
-Função: Gerenciar pessoas
-
-Botões:
-
-Novo: limpa campos para cadastro
-
-Salvar: cria ou atualiza pessoa
-
-Excluir: remove pessoa selecionada
-
-Buscar: filtra por nome ou CPF
-
-Limpar: remove filtros
---------------------------------------------------------
-📂 Views (Abas da aplicação)
-👤 Aba Pessoas
-
-Função: Gerenciar pessoas
-
-Botões:
-
-Novo: limpa campos para cadastro
-
-Salvar: cria ou atualiza pessoa
-
-Excluir: remove pessoa selecionada
-
-Buscar: filtra por nome ou CPF
-
-Limpar: remove filtros
---------------------------------------------------------
-
-
-📦 Aba Produtos
-
-Função: Gerenciar produtos
-
-Botões:
-
-Novo: prepara inclusão
-
-Salvar: cria ou atualiza produto
-
-Excluir: remove produto
-
-Buscar: filtra por nome, código e faixa de valor
-
-Limpar: remove filtros
-
-------------------------------------------------------
-🧪 Persistência de Dados
-
-Os dados são armazenados localmente em arquivos JSON:
-
-Data/
-├── pessoas.json
-├── produtos.json
-└── pedidos.json
-
-
-Os arquivos são criados automaticamente caso não existam.
----------------------------------------------------------
-
-Data/
-├── pessoas.json
-├── produtos.json
-└── pedidos.json
-Os arquivos são criados automaticamente caso não existam.
----------------------------------------------------------
-
-
----------------------------------------------------------
-Data/
-├── pessoas.json
-├── produtos.json
-└── pedidos.json
-Os arquivos são criados automaticamente caso não existam.
-
-📦 Dependências Necessárias
-.NET Framework 4.6+ (ou 4.8)
-
-Newtonsoft.Json (JSON.NET)
-
-Instalação via NuGet:
-
-Install-Package Newtonsoft.Json
---------------------------------------------------------
-
-✅ Status do Projeto
-
-✔ CRUD de Pessoas
-✔ CRUD de Produtos
-✔ CRUD de Pedidos
-✔ Cálculo automático de totais
-✔ Persistência em JSON
-✔ MVVM mínimo funcional
-
-----------------------------------------------------------
-👨‍💻 Observação Final
-
-Este projeto foi desenvolvido com foco em clareza, 
-organização e boas práticas básicas, sendo adequado 
-para avaliação técnica em vagas de estágio ou desenvolvedor júnior.
-# WpfApp
-=======
-# WpfApp
-Projeto técnico para avaliação
->>>>>>> 8fccd4aae0469a42406b3a8997f11afd77d8f88b
