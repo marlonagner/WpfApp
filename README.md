@@ -26,9 +26,8 @@ Abra o projeto no Visual Studio ou JetBrains Ride
         https://www.nuget.org/packages/newtonsoft.json/ 
    Via Terminal Powershell em Modo Administrador:
     
-      Install-Package Newtonsoft.Json
-
- 
+    Install-Package Newtonsoft.Json -Version 13.0.5
+  
   Restaure as dependências:
 
       dotnet restore
