@@ -8,17 +8,18 @@
    ```bash
    git clone https://github.com/marlonagner/WpfApp.git
 
-Abra o projeto no Visual Studio ou JetBrains Rider
+Abra o projeto no Visual Studio ou JetBrains Ride
 
-   
   ## 📦 Dependências
 
-   - .NET Framework **4.6 ou 4.8**  
-
-         https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
-   Via Terminal: 
+   - .NET Framework  4.8**    
+      Pelo Site:
+         https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net48
+         
+  Via Terminal: 
   
-        winget install Microsoft.DotNet.Framework.DeveloperPack_4 --version 4.8
+    winget install Microsoft.NetFx48
+
 
    Newtonsoft.Json**
 
@@ -31,10 +32,6 @@ Abra o projeto no Visual Studio ou JetBrains Rider
   Restaure as dependências:
 
       dotnet restore
-   
-   
- 
-
   O pacote é utilizado para serialização e desserialização dos dados em JSON.
    
 ### 🔧 Pré-requisitos
@@ -48,17 +45,6 @@ Abra o projeto no Visual Studio ou JetBrains Rider
 - **JetBrains Rider**
    
       https://www.jetbrains.com/pt-br/rider/download/?section=windows
-
-
-
-
- 
-  
-
-
-
-
-
 
 Execute o projeto pela IDE
 ---
