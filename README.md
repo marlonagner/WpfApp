@@ -8,19 +8,29 @@
 - .NET Framework **4.6 ou 4.8**  
   https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
   
-- IDE **Visual Studio Community**  
-  https://visualstudio.microsoft.com/pt-br/vs/community/  
+- IDE **Visual Studio Community**  <br />
+  https://visualstudio.microsoft.com/pt-br/vs/community/  <br />
   **ou**
 - **JetBrains Rider**  
   https://www.jetbrains.com/pt-br/rider/download/?section=windows
 
   ## 📦 Dependências
 
-   .NET Framework **4.6 ou 4.8**  
+  .NET Framework **4.6 ou 4.8**
+  Caso Prefira baixar Via Terminal: <br />
+  
+      winget install Microsoft.DotNet.Framework.DeveloperPack_4 --version 4.8
 
-- **Newtonsoft.Json**
-- https://www.nuget.org/packages/newtonsoft.json/
-  Utilizado para serialização e desserialização dos dados em JSON.
+   <br />
+   Newtonsoft.Json**
+      https://www.nuget.org/packages/newtonsoft.json/ <br />
+
+     Caso Prefira baixar Via Terminal:
+    <br />
+    
+      dotnet add package Newtonsoft.Json --version 13.0.4 <br />
+ <br />
+   Utilizado para serialização e desserialização dos dados em JSON.
   
 
 #### ▶️ Passos para execução
