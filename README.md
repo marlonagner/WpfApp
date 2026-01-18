@@ -2,23 +2,35 @@
 
 ## ▶️ Como Executar:
 
-### Pré-requisitos
-- Windows 10 ou superior
-- .NET Framework 4.6 ou 4.8 https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
-- IDE Visual Studio  https://visualstudio.microsoft.com/pt-br/vs/community/
-- ou JetBrains Rider https://www.jetbrains.com/pt-br/rider/download/?section=windows
+### 🔧 Pré-requisitos
+- Windows 10 ou superior  
+- .NET Framework **4.6 ou 4.8**  
+  https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46  
+- IDE **Visual Studio Community**  
+  https://visualstudio.microsoft.com/pt-br/vs/community/  
+  **ou**
+- **JetBrains Rider**  
+  https://www.jetbrains.com/pt-br/rider/download/?section=windows
   
 
-### Passos
-1. Clone o repositório:
-2. git clone https://github.com/marlonagner/WpfApp.git
-3.Restaure As Dependencias:
- dotnet restore
-   
- 4. Instale os pacotes NuGet baixando a extensão no Rider ou Visual Studio.
- https://www.nuget.org/packages/newtonsoft.json/
- 5. Execute o projeto
+#### ▶️ Passos para execução
 
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/marlonagner/WpfApp.git
+
+   Abra o projeto no Visual Studio ou JetBrains Rider
+
+Restaure as dependências:
+
+dotnet restore
+
+Caso necessário, instale o pacote NuGet:
+
+Newtonsoft.Json
+https://www.nuget.org/packages/newtonsoft.json/
+
+Execute o projeto pela IDE
 ---
 
 ## 📦 Dependências
