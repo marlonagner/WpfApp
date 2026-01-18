@@ -11,13 +11,17 @@
   
 - IDE **Visual Studio Community**
   
-             https://visualstudio.microsoft.com/pt-br/vs/community/  
+      https://visualstudio.microsoft.com/pt-br/vs/community/  
   **ou**
 - **JetBrains Rider**
    
-       https://www.jetbrains.com/pt-br/rider/download/?section=windows
+      https://www.jetbrains.com/pt-br/rider/download/?section=windows
 
   ## 📦 Dependências
+
+  Restaure as dependências:
+
+      dotnet restore
 
   .NET Framework **4.6 ou 4.8**
   Caso Prefira baixar Via Terminal: <br />
@@ -29,7 +33,7 @@
 
          https://www.nuget.org/packages/newtonsoft.json/ 
 
-     Caso Prefira baixar Via Terminal:
+  Caso Prefira baixar Via Terminal:
 
     
       dotnet add package Newtonsoft.Json --version 13.0.4 
@@ -45,9 +49,7 @@
 
    Abra o projeto no Visual Studio ou JetBrains Rider
 
-Restaure as dependências:
 
-     dotnet restore
 
 
 Execute o projeto pela IDE
