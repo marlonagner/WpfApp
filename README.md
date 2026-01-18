@@ -24,7 +24,7 @@ Abra o projeto no Visual Studio ou JetBrains Ride
    Newtonsoft.Json**
 
         https://www.nuget.org/packages/newtonsoft.json/ 
-   Via Terminal:
+   Via Terminal Powershell em Modo Administrador:
     
       Install-Package Newtonsoft.Json
 
@@ -32,6 +32,7 @@ Abra o projeto no Visual Studio ou JetBrains Ride
   Restaure as dependências:
 
       dotnet restore
+
   O pacote é utilizado para serialização e desserialização dos dados em JSON.
    
 ### 🔧 Pré-requisitos
