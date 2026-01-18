@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿# WpfApp – Sistema de Pedidos (WPF + JSON)
+# WpfApp – Sistema de Pedidos (WPF + JSON)
 
 Aplicação desktop desenvolvida em **WPF (.NET Framework)** para gerenciamento de **Pessoas, Produtos e Pedidos**, utilizando persistência em arquivos **JSON** e padrão de projeto **MVVM (Model–View–ViewModel)**.
 
