@@ -2,15 +2,25 @@
 
 ## ▶️ Como Executar:
 
+
 ### 🔧 Pré-requisitos
 - Windows 10 ou superior  
 - .NET Framework **4.6 ou 4.8**  
-  https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46  
+  https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net46
+  
 - IDE **Visual Studio Community**  
   https://visualstudio.microsoft.com/pt-br/vs/community/  
   **ou**
 - **JetBrains Rider**  
   https://www.jetbrains.com/pt-br/rider/download/?section=windows
+
+  ## 📦 Dependências
+
+   .NET Framework **4.6 ou 4.8**  
+
+- **Newtonsoft.Json**
+- https://www.nuget.org/packages/newtonsoft.json/
+  Utilizado para serialização e desserialização dos dados em JSON.
   
 
 #### ▶️ Passos para execução
@@ -33,13 +43,6 @@ https://www.nuget.org/packages/newtonsoft.json/
 Execute o projeto pela IDE
 ---
 
-## 📦 Dependências
-
-- **Newtonsoft.Json**
-- https://www.nuget.org/packages/newtonsoft.json/
-  Utilizado para serialização e desserialização dos dados em JSON.
-
----
 
 ## 📋 Funcionalidades
 
