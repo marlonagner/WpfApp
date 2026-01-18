@@ -28,7 +28,7 @@
      Caso Prefira baixar Via Terminal:
     <br />
     
-      dotnet add package Newtonsoft.Json --version 13.0.4 <br />
+      dotnet add package Newtonsoft.Json --version 13.0.4 
  <br />
    Utilizado para serialização e desserialização dos dados em JSON.
   
