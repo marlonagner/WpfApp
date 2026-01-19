@@ -1,26 +1,14 @@
 [
   {
-    "Codigo": "A1",
+    "Codigo": "A10101010",
     "Id": 1,
-    "Nome": "BENNER",
+    "Nome": "NOVO EMPREGO",
     "Valor": 5.000
   },
   {
-    "Codigo": "A2",
+    "Codigo": "A10101011",
     "Id": 2,
-    "Nome": "DIA DE ALEGRIA",
-    "Valor": 10.000
-  },
-  {
-    "Codigo": "A3",
-    "Id": 3,
-    "Nome": "BAcon",
-    "Valor": 20.00
-  },
-  {
-    "Codigo": "A4",
-    "Id": 4,
-    "Nome": "PUIPI",
-    "Valor": 10.000
+    "Nome": "BACON",
+    "Valor": 2.0
   }
 ]

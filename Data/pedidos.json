@@ -1,14 +1,14 @@
 [
   {
-    "DataVenda": "2026-01-18T22:48:45.6870478-03:00",
+    "DataVenda": "2026-01-19T01:41:11.7658092-03:00",
     "FormaPagamento": 0,
     "Id": 1,
     "Itens": [
       {
         "Produto": {
-          "Codigo": "A1",
+          "Codigo": "A10101010",
           "Id": 1,
-          "Nome": "BENNER",
+          "Nome": "NOVO EMPREGO",
           "Valor": 5.000
         },
         "Quantidade": 1,
@@ -17,98 +17,42 @@
       }
     ],
     "Pessoa": {
-      "Cpf": "36729509805",
-      "Endereco": "AV INDUSTRIAS",
+      "Cpf": "14725836921",
+      "Endereco": "DAS INDUSTRIAS",
       "Id": 1,
-      "Nome": "MARLON"
+      "Nome": "MARLON AGNER"
     },
     "QtdItens": 1,
-    "ResumoProdutos": "BENNER x1",
+    "ResumoProdutos": "NOVO EMPREGO x1",
     "Status": 1,
     "TotalPedidoTexto": "R$ 5,00"
   },
   {
-    "DataVenda": "2026-01-18T23:26:47.954836-03:00",
-    "FormaPagamento": 0,
+    "DataVenda": "2026-01-19T01:43:22.6717126-03:00",
+    "FormaPagamento": 3,
     "Id": 2,
     "Itens": [
       {
         "Produto": {
-          "Codigo": "A2",
+          "Codigo": "A10101011",
           "Id": 2,
-          "Nome": "DIA DE ALEGRIA",
-          "Valor": 10.000
+          "Nome": "BACON",
+          "Valor": 2.0
         },
         "Quantidade": 1,
-        "Subtotal": 10.000,
-        "SubtotalTexto": "R$ 10,00"
+        "Subtotal": 2.0,
+        "SubtotalTexto": "R$ 2,00"
       }
     ],
     "Pessoa": {
-      "Cpf": "14414414141",
-      "Endereco": "MARINGA",
-      "Id": 2,
-      "Nome": "BENNER"
-    },
-    "QtdItens": 1,
-    "ResumoProdutos": "DIA DE ALEGRIA x1",
-    "Status": 1,
-    "TotalPedidoTexto": "R$ 10,00"
-  },
-  {
-    "DataVenda": "2026-01-19T00:44:52.4451718-03:00",
-    "FormaPagamento": 3,
-    "Id": 3,
-    "Itens": [
-      {
-        "Produto": {
-          "Codigo": "A3",
-          "Id": 3,
-          "Nome": "BAcon",
-          "Valor": 20.00
-        },
-        "Quantidade": 1,
-        "Subtotal": 20.00,
-        "SubtotalTexto": "R$ 20,00"
-      }
-    ],
-    "Pessoa": {
-      "Cpf": "98765432165",
+      "Cpf": "12345678945",
       "Endereco": "DAS INDUSTRIAS",
-      "Id": 3,
+      "Id": 2,
       "Nome": "PUGA"
     },
     "QtdItens": 1,
-    "ResumoProdutos": "BAcon x1",
+    "ResumoProdutos": "BACON x1",
     "Status": 1,
-    "TotalPedidoTexto": "R$ 20,00"
-  },
-  {
-    "DataVenda": "2026-01-19T01:02:09.5714787-03:00",
-    "FormaPagamento": 3,
-    "Id": 4,
-    "Itens": [
-      {
-        "Produto": {
-          "Codigo": "A4",
-          "Id": 4,
-          "Nome": "PUIPI",
-          "Valor": 10.000
-        },
-        "Quantidade": 1,
-        "Subtotal": 10.000,
-        "SubtotalTexto": "R$ 10,00"
-      }
-    ],
-    "Pessoa": {
-      "Cpf": "14725836925",
-      "Endereco": "DAS INDUSTRIAS",
-      "Id": 4,
-      "Nome": "LARISSA"
-    },
-    "QtdItens": 1,
-    "ResumoProdutos": "PUIPI x1",
-    "Status": 1,
-    "TotalPedidoTexto": "R$ 10,00"
+    "TotalPedidoTexto": "R$ 2,00"
   }
 ]

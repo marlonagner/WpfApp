@@ -36,6 +36,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Column="0"
@@ -58,7 +59,14 @@
                     <Button Grid.Column="3"
                             Content="Atualizar"
                             Width="95"
+                            Margin="0,0,8,0"
                             Command="{Binding AtualizarPedidosCommand}"/>
+
+                    <!-- ✅ VOLTOU O EXCLUIR -->
+                    <Button Grid.Column="4"
+                            Content="Excluir"
+                            Width="85"
+                            Command="{Binding ExcluirPedidoCommand}"/>
                 </Grid>
 
                 <DataGrid Grid.Row="1"
@@ -75,10 +83,10 @@
                         <DataGridTextColumn Header="Pagamento" Binding="{Binding FormaPagamento}" Width="110"/>
                         <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90"/>
 
-                        <!-- ✅ aqui aparece os produtos -->
+                        <!-- ✅ produtos do pedido -->
                         <DataGridTextColumn Header="Produtos" Binding="{Binding ResumoProdutos}" Width="*"/>
 
-                        <!-- ✅ aqui aparece o total -->
+                        <!-- ✅ total do pedido -->
                         <DataGridTextColumn Header="Total" Binding="{Binding TotalPedidoTexto}" Width="90"/>
                     </DataGrid.Columns>
                 </DataGrid>

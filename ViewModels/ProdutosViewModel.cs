@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using WpfApp.Models;
 using WpfApp.Services;
-using WpfApp.ViewModels.WpfApp.ViewModels;
+using WpfApp.ViewModels;
 
 namespace WpfApp.ViewModels
 {

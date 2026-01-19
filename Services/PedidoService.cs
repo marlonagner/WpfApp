@@ -59,5 +59,22 @@ namespace WpfApp.Services
 
             _repo.Save(pedidos);
         }
+
+        //Deleta pedido errado ao clicar no botao
+        public void Delete(int id)
+        {
+            var pedidos = _repo.Load();
+
+            var existente = pedidos.FirstOrDefault(p => p.Id == id);
+            if (existente == null)
+                throw new InvalidOperationException("Pedido não encontrado.");
+
+            // regra: se quiser bloquear exclusão de finalizado, descomente
+            // if (existente.Status != StatusPedido.Pendente)
+            //     throw new InvalidOperationException("Pedido finalizado: exclusão bloqueada.");
+
+            pedidos.Remove(existente);
+            _repo.Save(pedidos);
+        }
     }
 }
