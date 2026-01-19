@@ -42,6 +42,7 @@ ou abra o WpfAppcompleto pela IDE JetBrains Ride
 ### 🔧 Pré-requisitos
 - Windows 10 ou superior  
 
+  Execute o projeto pela IDE
   
 - IDE **Visual Studio Community**
   
@@ -51,7 +52,7 @@ ou abra o WpfAppcompleto pela IDE JetBrains Ride
    
       https://www.jetbrains.com/pt-br/rider/download/?section=windows
 
-Execute o projeto pela IDE
+
 ---
 
 
