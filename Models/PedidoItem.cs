@@ -6,8 +6,6 @@
         public Produto Produto { get; set; }
         public int Quantidade { get; set; }
 
-        public string SubtotalTexto => ((Produto?.Valor ?? 0m) * Quantidade).ToString("C");
-
         // Faz o calculo do Subtotal do item
         public decimal Subtotal
         {
@@ -17,5 +15,7 @@
                 return valor * Quantidade;
             }
         }
+
+        public string SubtotalTexto => ((Produto?.Valor ?? 0m) * Quantidade).ToString("C");
     }
 }

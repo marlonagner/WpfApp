@@ -3,6 +3,7 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.Views
 {
+    //Estende UserControl para criar uma View personalizada
     public partial class ProdutosView : UserControl
     {
         public ProdutosView()

@@ -13,14 +13,7 @@ namespace WpfApp.Services
         {
             _repo = new JsonRepository<Pessoa>(Paths.PessoasJson);
         }
-        
-        //Pega a lista de pessoas 
-        public List<Pessoa> GetAll()
-        {
-            return _repo.Load()
-                .OrderBy(p => p.Nome)
-                .ToList();
-        }
+
         // Adiciona a pessoa  também fazendo validações
         public void Add(Pessoa pessoa)
         {
@@ -31,6 +24,26 @@ namespace WpfApp.Services
 
             pessoas.Add(pessoa);
             _repo.Save(pessoas);
+        }
+
+        // Exclui a pessoa caso ela exista no banco e dados e salva o estado
+        public void Delete(int id)
+        {
+            var pessoas = _repo.Load();
+
+            var existente = pessoas.FirstOrDefault(p => p.Id == id);
+            if (existente == null) return;
+
+            pessoas.Remove(existente);
+            _repo.Save(pessoas);
+        }
+
+        //Pega a lista de pessoas 
+        public List<Pessoa> GetAll()
+        {
+            return _repo.Load()
+                .OrderBy(p => p.Nome)
+                .ToList();
         }
          // Atualiza a pessoa, validando se a pessoa já existe ou não
         public void Update(Pessoa pessoa)
@@ -44,17 +57,6 @@ namespace WpfApp.Services
             existente.Cpf = pessoa.Cpf;
             existente.Endereco = pessoa.Endereco;
 
-            _repo.Save(pessoas);
-        }
-        // Exclui a pessoa caso ela exista no banco e dados e salva o estado
-        public void Delete(int id)
-        {
-            var pessoas = _repo.Load();
-
-            var existente = pessoas.FirstOrDefault(p => p.Id == id);
-            if (existente == null) return;
-
-            pessoas.Remove(existente);
             _repo.Save(pessoas);
         }
     }

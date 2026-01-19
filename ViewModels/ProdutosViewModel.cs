@@ -7,26 +7,114 @@ using WpfApp.ViewModels.WpfApp.ViewModels;
 
 namespace WpfApp.ViewModels
 {
+    //Extensão da BaseViewModel
     public class ProdutosViewModel : BaseViewModel
     {
         private readonly ProdutoService _service = new ProdutoService();
 
-        // Lista que alimenta o DataGrid
-        public ObservableCollection<Produto> Produtos { get; } = new ObservableCollection<Produto>();
+        private string _codigo;
 
         // Debug visível na tela (pra saber se salvou, quantos itens, e qual arquivo está usando)
         private string _debugStatus;
+
+        private string _filtroCodigo;
+
+        private string _filtroMax;
+
+        private string _filtroMin;
+
+        // ====== Filtros ======
+        private string _filtroNome;
+
+        // ====== Campos do Editor ======
+        private int _id;
+
+        private string _nome;
+
+        // Produto selecionado no DataGrid
+        private Produto _selecionado;
+
+        // Texto pra não sofrer com vírgula/ponto
+        private string _valorTexto;
+
+        //Construtor
+        public ProdutosViewModel()
+        {
+            BuscarCommand = new RelayCommand(Buscar);
+            LimparFiltrosCommand = new RelayCommand(LimparFiltros);
+            IncluirCommand = new RelayCommand(Incluir);
+            SalvarCommand = new RelayCommand(Salvar, PodeSalvar);
+            ExcluirCommand = new RelayCommand(Excluir, PodeExcluir);
+
+            DebugStatus = "VM OK. Arquivo: " + CaminhoProdutosJson;
+
+            CarregarTudo();
+        }
+
+        // ====== Commands ======
+        public RelayCommand BuscarCommand { get; }
+
+        // Caminho real do JSON que o app está usando (via Paths)
+        public string CaminhoProdutosJson => Paths.ProdutosJson;
+
+        public string Codigo
+        {
+            get => _codigo;
+            set { _codigo = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
         public string DebugStatus
         {
             get => _debugStatus;
             set { _debugStatus = value; OnPropertyChanged(); }
         }
 
-        // Caminho real do JSON que o app está usando (via Paths)
-        public string CaminhoProdutosJson => Paths.ProdutosJson;
+        public RelayCommand ExcluirCommand { get; }
 
-        // Produto selecionado no DataGrid
-        private Produto _selecionado;
+        public string FiltroCodigo
+        {
+            get => _filtroCodigo;
+            set { _filtroCodigo = value; OnPropertyChanged(); }
+        }
+
+        public string FiltroMax
+        {
+            get => _filtroMax;
+            set { _filtroMax = value; OnPropertyChanged(); }
+        }
+
+        public string FiltroMin
+        {
+            get => _filtroMin;
+            set { _filtroMin = value; OnPropertyChanged(); }
+        }
+
+        public string FiltroNome
+        {
+            get => _filtroNome;
+            set { _filtroNome = value; OnPropertyChanged(); }
+        }
+
+        public int Id
+        {
+            get => _id;
+            set { _id = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public RelayCommand IncluirCommand { get; }
+
+        public RelayCommand LimparFiltrosCommand { get; }
+
+        public string Nome
+        {
+            get => _nome;
+            set { _nome = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        // Lista que alimenta o DataGrid
+        public ObservableCollection<Produto> Produtos { get; } = new ObservableCollection<Produto>();
+        public RelayCommand SalvarCommand { get; }
+
         public Produto Selecionado
         {
             get => _selecionado;
@@ -46,108 +134,20 @@ namespace WpfApp.ViewModels
                 AtualizarCanExecute();
             }
         }
-
-        // ====== Campos do Editor ======
-        private int _id;
-        public int Id
-        {
-            get => _id;
-            set { _id = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        private string _nome;
-        public string Nome
-        {
-            get => _nome;
-            set { _nome = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        private string _codigo;
-        public string Codigo
-        {
-            get => _codigo;
-            set { _codigo = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        // Texto pra não sofrer com vírgula/ponto
-        private string _valorTexto;
         public string ValorTexto
         {
             get => _valorTexto;
             set { _valorTexto = value; OnPropertyChanged(); AtualizarCanExecute(); }
         }
 
-        // ====== Filtros ======
-        private string _filtroNome;
-        public string FiltroNome
+        // Método que confirma se o atualizar pode ser executado
+        private void AtualizarCanExecute()
         {
-            get => _filtroNome;
-            set { _filtroNome = value; OnPropertyChanged(); }
+            // com RelayCommand padrão WPF, isso força reavaliar botões
+            SalvarCommand.RaiseCanExecuteChanged();
+            ExcluirCommand.RaiseCanExecuteChanged();
         }
 
-        private string _filtroCodigo;
-        public string FiltroCodigo
-        {
-            get => _filtroCodigo;
-            set { _filtroCodigo = value; OnPropertyChanged(); }
-        }
-
-        private string _filtroMin;
-        public string FiltroMin
-        {
-            get => _filtroMin;
-            set { _filtroMin = value; OnPropertyChanged(); }
-        }
-
-        private string _filtroMax;
-        public string FiltroMax
-        {
-            get => _filtroMax;
-            set { _filtroMax = value; OnPropertyChanged(); }
-        }
-
-        // ====== Commands ======
-        public RelayCommand BuscarCommand { get; }
-        public RelayCommand LimparFiltrosCommand { get; }
-        public RelayCommand IncluirCommand { get; }
-        public RelayCommand SalvarCommand { get; }
-        public RelayCommand ExcluirCommand { get; }
-
-        public ProdutosViewModel()
-        {
-            BuscarCommand = new RelayCommand(Buscar);
-            LimparFiltrosCommand = new RelayCommand(LimparFiltros);
-            IncluirCommand = new RelayCommand(Incluir);
-            SalvarCommand = new RelayCommand(Salvar, PodeSalvar);
-            ExcluirCommand = new RelayCommand(Excluir, PodeExcluir);
-
-            DebugStatus = "VM OK. Arquivo: " + CaminhoProdutosJson;
-
-            CarregarTudo();
-        }
-        //Método de carregar produtos
-        private void CarregarTudo()
-        {
-            try
-            {
-                Produtos.Clear();
-
-                var lista = _service.GetAll();
-                foreach (var p in lista)
-                    Produtos.Add(p);
-
-                Selecionado = null;
-                LimparEditor();
-
-                DebugStatus = "Carregou " + Produtos.Count + " item(ns). Arquivo: " + CaminhoProdutosJson;
-            }
-            catch (Exception ex)
-            {
-                DebugStatus = "ERRO ao carregar: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
-            }
-        }
-        
-        
         // Metodo de buscar produto
         private void Buscar()
         {
@@ -172,6 +172,68 @@ namespace WpfApp.ViewModels
                 DebugStatus = "ERRO na busca: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
             }
         }
+
+        //Método de carregar produtos
+        private void CarregarTudo()
+        {
+            try
+            {
+                Produtos.Clear();
+
+                var lista = _service.GetAll();
+                foreach (var p in lista)
+                    Produtos.Add(p);
+
+                Selecionado = null;
+                LimparEditor();
+
+                DebugStatus = "Carregou " + Produtos.Count + " item(ns). Arquivo: " + CaminhoProdutosJson;
+            }
+            catch (Exception ex)
+            {
+                DebugStatus = "ERRO ao carregar: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
+            }
+        }
+        // Metodo de excluir produto
+        private void Excluir()
+        {
+            try
+            {
+                if (Selecionado == null)
+                {
+                    DebugStatus = "Selecione um produto no grid para excluir.";
+                    return;
+                }
+
+                _service.Delete(Selecionado.Id);
+                DebugStatus = "Excluiu e salvou em: " + CaminhoProdutosJson;
+
+                CarregarTudo();
+                DebugStatus += " | Itens no grid: " + Produtos.Count;
+            }
+            catch (Exception ex)
+            {
+                DebugStatus = "ERRO ao excluir: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
+            }
+        }
+
+        //Método de incluir produto (Não é o de salvar)
+        private void Incluir()
+        {
+            Selecionado = null;
+            LimparEditor();
+            DebugStatus = "Modo inclusão. Preencha e clique Salvar. Arquivo: " + CaminhoProdutosJson;
+        }
+
+        // Metodo para limpar editor
+        private void LimparEditor()
+        {
+            Id = 0;
+            Nome = "";
+            Codigo = "";
+            ValorTexto = "";
+        }
+
         //Método de limpar filtros
         private void LimparFiltros()
         {
@@ -182,14 +244,23 @@ namespace WpfApp.ViewModels
 
             CarregarTudo();
         }
-        //Método de incluir produto (Não é o de salvar)
-        private void Incluir()
+        //Método booleano confirma se pode excluir
+        private bool PodeExcluir()
         {
-            Selecionado = null;
-            LimparEditor();
-            DebugStatus = "Modo inclusão. Preencha e clique Salvar. Arquivo: " + CaminhoProdutosJson;
+            return Selecionado != null && Selecionado.Id > 0;
         }
-         //Método para salvar produto
+
+        // Método que analista e valida se pode salvar
+        private bool PodeSalvar()
+        {
+            if (string.IsNullOrWhiteSpace(Nome)) return false;
+            if (string.IsNullOrWhiteSpace(Codigo)) return false;
+
+            var valor = TryParseDecimal(ValorTexto);
+            return valor.HasValue;
+        }
+
+        //Método para salvar produto
         private void Salvar()
         {
             try
@@ -237,59 +308,6 @@ namespace WpfApp.ViewModels
             {
                 DebugStatus = "ERRO ao salvar: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
             }
-        }
-
-        
-         // Metodo de excluir produto
-        private void Excluir()
-        {
-            try
-            {
-                if (Selecionado == null)
-                {
-                    DebugStatus = "Selecione um produto no grid para excluir.";
-                    return;
-                }
-
-                _service.Delete(Selecionado.Id);
-                DebugStatus = "Excluiu e salvou em: " + CaminhoProdutosJson;
-
-                CarregarTudo();
-                DebugStatus += " | Itens no grid: " + Produtos.Count;
-            }
-            catch (Exception ex)
-            {
-                DebugStatus = "ERRO ao excluir: " + ex.Message + " | Arquivo: " + CaminhoProdutosJson;
-            }
-        }
-        // Método que analista e valida se pode salvar
-        private bool PodeSalvar()
-        {
-            if (string.IsNullOrWhiteSpace(Nome)) return false;
-            if (string.IsNullOrWhiteSpace(Codigo)) return false;
-
-            var valor = TryParseDecimal(ValorTexto);
-            return valor.HasValue;
-        }
-        //Método booleano confirma se pode excluir
-        private bool PodeExcluir()
-        {
-            return Selecionado != null && Selecionado.Id > 0;
-        }
-        // Método que confirma se o atualizar pode ser executado
-        private void AtualizarCanExecute()
-        {
-            // com RelayCommand padrão WPF, isso força reavaliar botões
-            SalvarCommand.RaiseCanExecuteChanged();
-            ExcluirCommand.RaiseCanExecuteChanged();
-        }
-        // Metodo para limpar editor
-        private void LimparEditor()
-        {
-            Id = 0;
-            Nome = "";
-            Codigo = "";
-            ValorTexto = "";
         }
         // Metodo que valida o tipo de entrada do valor do produto, se usou virgula ou ponto
         private decimal? TryParseDecimal(string texto)

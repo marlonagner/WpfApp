@@ -7,22 +7,78 @@ using WpfApp.ViewModels.WpfApp.ViewModels;
 
 namespace WpfApp.ViewModels
 {
+    //Extende BaseViewModel para herdar a implementação de INotifyPropertyChanged
     public class PessoasViewModel : BaseViewModel
     {
         private readonly PessoaService _service = new PessoaService();
 
-        public ObservableCollection<Pessoa> Pessoas { get; } = new ObservableCollection<Pessoa>();
-
+        private string _cpf;
         private string _debugStatus;
+        private string _endereco;
+
+        // filtro simples por nome/cpf
+        private string _filtro;
+
+        private int _id;
+        private string _nome;
+        private Pessoa _selecionado;
+
+        //Construtor
+        public PessoasViewModel()
+        {
+            BuscarCommand = new RelayCommand(Buscar);
+            LimparCommand = new RelayCommand(Limpar);
+            NovoCommand = new RelayCommand(Novo);
+            SalvarCommand = new RelayCommand(Salvar, PodeSalvar);
+            ExcluirCommand = new RelayCommand(Excluir, PodeExcluir);
+
+            CarregarTudo();
+        }
+
+        public RelayCommand BuscarCommand { get; }
+        public string CaminhoPessoasJson => Paths.PessoasJson;
+        public string Cpf
+        {
+            get => _cpf;
+            set { _cpf = value; OnPropertyChanged(); }
+        }
+
         public string DebugStatus
         {
             get => _debugStatus;
             set { _debugStatus = value; OnPropertyChanged(); }
         }
 
-        public string CaminhoPessoasJson => Paths.PessoasJson;
+        public string Endereco
+        {
+            get => _endereco;
+            set { _endereco = value; OnPropertyChanged(); }
+        }
 
-        private Pessoa _selecionado;
+        public RelayCommand ExcluirCommand { get; }
+        public string Filtro
+        {
+            get => _filtro;
+            set { _filtro = value; OnPropertyChanged(); }
+        }
+
+        public int Id
+        {
+            get => _id;
+            set { _id = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public RelayCommand LimparCommand { get; }
+        public string Nome
+        {
+            get => _nome;
+            set { _nome = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public RelayCommand NovoCommand { get; }
+        public ObservableCollection<Pessoa> Pessoas { get; } = new ObservableCollection<Pessoa>();
+        public RelayCommand SalvarCommand { get; }
+
         public Pessoa Selecionado
         {
             get => _selecionado;
@@ -42,79 +98,13 @@ namespace WpfApp.ViewModels
                 AtualizarCanExecute();
             }
         }
-
-        private int _id;
-        public int Id
+        //Atualiza o estado dos comandos que dependem de condições
+        private void AtualizarCanExecute()
         {
-            get => _id;
-            set { _id = value; OnPropertyChanged(); AtualizarCanExecute(); }
+            SalvarCommand.RaiseCanExecuteChanged();
+            ExcluirCommand.RaiseCanExecuteChanged();
         }
-
-        private string _nome;
-        public string Nome
-        {
-            get => _nome;
-            set { _nome = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        private string _cpf;
-        public string Cpf
-        {
-            get => _cpf;
-            set { _cpf = value; OnPropertyChanged(); }
-        }
-
-        private string _endereco;
-        public string Endereco
-        {
-            get => _endereco;
-            set { _endereco = value; OnPropertyChanged(); }
-        }
-
-        // filtro simples por nome/cpf
-        private string _filtro;
-        public string Filtro
-        {
-            get => _filtro;
-            set { _filtro = value; OnPropertyChanged(); }
-        }
-
-        public RelayCommand BuscarCommand { get; }
-        public RelayCommand LimparCommand { get; }
-        public RelayCommand NovoCommand { get; }
-        public RelayCommand SalvarCommand { get; }
-        public RelayCommand ExcluirCommand { get; }
-
-        public PessoasViewModel()
-        {
-            BuscarCommand = new RelayCommand(Buscar);
-            LimparCommand = new RelayCommand(Limpar);
-            NovoCommand = new RelayCommand(Novo);
-            SalvarCommand = new RelayCommand(Salvar, PodeSalvar);
-            ExcluirCommand = new RelayCommand(Excluir, PodeExcluir);
-
-            CarregarTudo();
-        }
-
-        private void CarregarTudo()
-        {
-            try
-            {
-                Pessoas.Clear();
-                foreach (var p in _service.GetAll())
-                    Pessoas.Add(p);
-
-                Selecionado = null;
-                LimparEditor();
-
-                DebugStatus = "Carregou " + Pessoas.Count + " pessoa(s). Arquivo: " + CaminhoPessoasJson;
-            }
-            catch (Exception ex)
-            {
-                DebugStatus = "ERRO ao carregar: " + ex.Message + " | " + CaminhoPessoasJson;
-            }
-        }
-
+        //Busca registros pelo filtro
         private void Buscar()
         {
             try
@@ -138,20 +128,75 @@ namespace WpfApp.ViewModels
                 DebugStatus = "ERRO na busca: " + ex.Message;
             }
         }
+        //Carrega todos os registros
+        private void CarregarTudo()
+        {
+            try
+            {
+                Pessoas.Clear();
+                foreach (var p in _service.GetAll())
+                    Pessoas.Add(p);
 
+                Selecionado = null;
+                LimparEditor();
+
+                DebugStatus = "Carregou " + Pessoas.Count + " pessoa(s). Arquivo: " + CaminhoPessoasJson;
+            }
+            catch (Exception ex)
+            {
+                DebugStatus = "ERRO ao carregar: " + ex.Message + " | " + CaminhoPessoasJson;
+            }
+        }
+        //Exclui o registro selecionado
+        private void Excluir()
+        {
+            try
+            {
+                if (Selecionado == null) return;
+
+                _service.Delete(Selecionado.Id);
+                DebugStatus = "Pessoa excluída!";
+                CarregarTudo();
+            }
+            catch (Exception ex)
+            {
+                DebugStatus = "ERRO ao excluir: " + ex.Message;
+            }
+        }
+
+        //Limpa o filtro e recarrega todos os registros
         private void Limpar()
         {
             Filtro = "";
             CarregarTudo();
         }
 
+        //Limpa os campos do editor
+        private void LimparEditor()
+        {
+            Id = 0;
+            Nome = "";
+            Cpf = "";
+            Endereco = "";
+        }
+        //Limpa o editor para um novo cadastro
         private void Novo()
         {
             Selecionado = null;
             LimparEditor();
             DebugStatus = "Modo novo cadastro.";
         }
-
+        //Valida se pode excluir
+        private bool PodeExcluir()
+        {
+            return Selecionado != null && Selecionado.Id > 0;
+        }
+        //Valida se pode salvar
+        private bool PodeSalvar()
+        {
+            return !string.IsNullOrWhiteSpace(Nome);
+        }
+        //Salva o registro (novo ou atualização)
         private void Salvar()
         {
             try
@@ -177,46 +222,6 @@ namespace WpfApp.ViewModels
             {
                 DebugStatus = "ERRO ao salvar: " + ex.Message;
             }
-        }
-
-        private void Excluir()
-        {
-            try
-            {
-                if (Selecionado == null) return;
-
-                _service.Delete(Selecionado.Id);
-                DebugStatus = "Pessoa excluída!";
-                CarregarTudo();
-            }
-            catch (Exception ex)
-            {
-                DebugStatus = "ERRO ao excluir: " + ex.Message;
-            }
-        }
-
-        private bool PodeSalvar()
-        {
-            return !string.IsNullOrWhiteSpace(Nome);
-        }
-
-        private bool PodeExcluir()
-        {
-            return Selecionado != null && Selecionado.Id > 0;
-        }
-
-        private void AtualizarCanExecute()
-        {
-            SalvarCommand.RaiseCanExecuteChanged();
-            ExcluirCommand.RaiseCanExecuteChanged();
-        }
-
-        private void LimparEditor()
-        {
-            Id = 0;
-            Nome = "";
-            Cpf = "";
-            Endereco = "";
         }
     }
 }

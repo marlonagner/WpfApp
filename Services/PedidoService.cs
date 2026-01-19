@@ -14,13 +14,6 @@ namespace WpfApp.Services
         {
             _repo = new JsonRepository<Pedido>(Paths.PedidosJson);
         }
-        // Pega todos os pedidos da lista
-        public List<Pedido> GetAll()
-        {
-            return _repo.Load()
-                .OrderByDescending(p => p.DataVenda)
-                .ToList();
-        }
         // Metodo para adicionar novo pedido, aplicando também as condicionais e filtros
         public Pedido Add(Pedido novo)
         {
@@ -34,6 +27,14 @@ namespace WpfApp.Services
 
             _repo.Save(pedidos);
             return novo;
+        }
+
+        // Pega todos os pedidos da lista
+        public List<Pedido> GetAll()
+        {
+            return _repo.Load()
+                .OrderByDescending(p => p.DataVenda)
+                .ToList();
         }
          // Metodo para atualizar o pedido e faz as validações e condicionais também
         public void Update(Pedido atualizado)

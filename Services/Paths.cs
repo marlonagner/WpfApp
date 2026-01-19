@@ -8,12 +8,10 @@ namespace WpfApp.Services
         //Atributos que recebem o caminho da pasta onde ocorre a persistência em Json
         public static string DataFolder => FindDataFolder();
 
-        public static string ProdutosJson => Path.Combine(DataFolder, "produtos.json");
-        public static string PessoasJson => Path.Combine(DataFolder, "pessoas.json");
         public static string PedidosJson => Path.Combine(DataFolder, "pedidos.json");
-
-        
-         // Garante por seguranda e encontra a pasta de persistência e que os dados vão ser persistidos.
+        public static string PessoasJson => Path.Combine(DataFolder, "pessoas.json");
+        public static string ProdutosJson => Path.Combine(DataFolder, "produtos.json");
+        // Garante por segurança e encontra a pasta de persistência e que os dados vão ser persistidos.
         private static string FindDataFolder()
         {
             // Começa pela pasta onde o app está rodando

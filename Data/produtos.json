@@ -1,8 +1,14 @@
 [
   {
+    "Codigo": "A1",
     "Id": 1,
     "Nome": "BENNER",
-    "Codigo": "A1",
     "Valor": 5.000
+  },
+  {
+    "Codigo": "A2",
+    "Id": 2,
+    "Nome": "DIA DE ALEGRIA",
+    "Valor": 10.000
   }
 ]

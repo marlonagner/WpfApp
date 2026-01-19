@@ -13,13 +13,6 @@ namespace WpfApp.Services
         {
             _repo = new JsonRepository<Produto>(Paths.ProdutosJson);
         }
-        //Pega toda a lista de produtos no repo e ordena 
-        public List<Produto> GetAll()
-        {
-            return _repo.Load()
-                        .OrderBy(p => p.Nome)
-                        .ToList();
-        }
         // Adiciona  um produto novo e faz validaçao de exceções
         public Produto Add(Produto novo)
         {
@@ -36,24 +29,8 @@ namespace WpfApp.Services
             _repo.Save(produtos);
             return novo;
         }
-         // Atualiza os produtos validando se ele já existe ou não
-        public void Update(Produto atualizado)
-        {
-            if (atualizado == null) throw new ArgumentNullException(nameof(atualizado));
 
-            var produtos = _repo.Load();
-
-            var existente = produtos.FirstOrDefault(p => p.Id == atualizado.Id);
-            if (existente == null)
-                throw new InvalidOperationException("Produto não encontrado.");
-
-            existente.Nome = atualizado.Nome;
-            existente.Codigo = atualizado.Codigo;
-            existente.Valor = atualizado.Valor;
-
-            _repo.Save(produtos);
-        }
-           // Deleta o produto caso ele já exista persistido no banco de dados 
+        // Deleta o produto caso ele já exista persistido no banco de dados 
         public void Delete(int id)
         {
             var produtos = _repo.Load();
@@ -63,6 +40,7 @@ namespace WpfApp.Services
 
             _repo.Save(produtos);
         }
+
         // Faz um filtro na lista de produtos e valiações no nome, codigo, valor minimo e maximo.
         public List<Produto> Filter(string nome, string codigo, decimal? valorMin, decimal? valorMax)
         {
@@ -87,6 +65,31 @@ namespace WpfApp.Services
                 query = query.Where(p => p.Valor <= valorMax.Value);
 
             return query.OrderBy(p => p.Nome).ToList();
+        }
+
+        //Pega toda a lista de produtos no repo e ordena 
+        public List<Produto> GetAll()
+        {
+            return _repo.Load()
+                        .OrderBy(p => p.Nome)
+                        .ToList();
+        }
+         // Atualiza os produtos validando se ele já existe ou não
+        public void Update(Produto atualizado)
+        {
+            if (atualizado == null) throw new ArgumentNullException(nameof(atualizado));
+
+            var produtos = _repo.Load();
+
+            var existente = produtos.FirstOrDefault(p => p.Id == atualizado.Id);
+            if (existente == null)
+                throw new InvalidOperationException("Produto não encontrado.");
+
+            existente.Nome = atualizado.Nome;
+            existente.Codigo = atualizado.Codigo;
+            existente.Valor = atualizado.Valor;
+
+            _repo.Save(produtos);
         }
     }
 }

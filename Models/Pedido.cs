@@ -8,23 +8,16 @@ namespace WpfApp.Models
 {
     public class Pedido
     {
+        public DateTime DataVenda { get; set; } = DateTime.Now;
+        public FormaPagamento FormaPagamento { get; set; }
         public int Id { get; set; }  // auto-increment no Service
-
-        // relacionamento
-        public Pessoa Pessoa { get; set; }
-        public string TotalPedidoTexto => ValorTotal().ToString("C");
-
-        
-        public int QtdItens => Itens?.Count ?? 0;
-
 
         // Atributo lista dos vários produtos com a quantidade
         public List<PedidoItem> Itens { get; set; } = new List<PedidoItem>();
 
-        public DateTime DataVenda { get; set; } = DateTime.Now;
-        public FormaPagamento FormaPagamento { get; set; }
-        public StatusPedido Status { get; set; } = StatusPedido.Pendente;
-        
+        // relacionamento
+        public Pessoa Pessoa { get; set; }
+        public int QtdItens => Itens?.Count ?? 0;
         public string ResumoProdutos
         {
             get
@@ -40,23 +33,26 @@ namespace WpfApp.Models
             }
         }
 
+        public StatusPedido Status { get; set; } = StatusPedido.Pendente;
+        public string TotalPedidoTexto => ValorTotal().ToString("C");
         // Métodos da classe:
-        
-        public decimal ValorTotal()
-        {
-            //Soma subtotal de cada item
-            return Itens.Sum(i => i.Subtotal);
-        }
-        
+
         //Data Da Venda usando DateTime
         public DateTime DataDaVenda()
         {
             return DataVenda;
         }
+
         //Forma De Pagamento com Enum
         public FormaPagamento FormaDePgto()
         {
             return FormaPagamento;
+        }
+
+        public decimal ValorTotal()
+        {
+            //Soma subtotal de cada item
+            return Itens.Sum(i => i.Subtotal);
         }
     }
 }

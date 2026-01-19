@@ -1,8 +1,14 @@
 [
   {
-    "Id": 1,
-    "Nome": "MARLON",
     "Cpf": "36729509805",
-    "Endereco": "AV INDUSTRIAS"
+    "Endereco": "AV INDUSTRIAS",
+    "Id": 1,
+    "Nome": "MARLON"
+  },
+  {
+    "Cpf": "14414414141",
+    "Endereco": "MARINGA",
+    "Id": 2,
+    "Nome": "BENNER"
   }
 ]

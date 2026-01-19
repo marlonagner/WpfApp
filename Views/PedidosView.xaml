@@ -63,7 +63,7 @@
                             Command="{Binding ExcluirPedidoCommand}"/>
                 </Grid>
 
-                <!-- DataGrid: bind direto no VM -->
+                <!-- DataGrid: bind direto no ViewModel-->
                 <DataGrid x:Name="dgPedidosSalvos"
                           Grid.Row="1"
                           Margin="0,8,0,0"

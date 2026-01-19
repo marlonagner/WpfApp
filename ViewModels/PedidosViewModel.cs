@@ -14,148 +14,38 @@ namespace WpfApp.ViewModels
     // A classe herda de BaseViewModel
     public class PedidosViewModel : BaseViewModel
     {
+        private readonly PedidoService _pedidoService = new PedidoService();
         private readonly PessoaService _pessoaService = new PessoaService();
         private readonly ProdutoService _produtoService = new ProdutoService();
-        private readonly PedidoService _pedidoService = new PedidoService();
-
-        // Combos
-        public ObservableCollection<Pessoa> Pessoas { get; } = new ObservableCollection<Pessoa>();
-        public ObservableCollection<Produto> Produtos { get; } = new ObservableCollection<Produto>();
-
-        // Itens do pedido atual (mostra no grid de itens)
-        public ObservableCollection<PedidoItem> Itens { get; } = new ObservableCollection<PedidoItem>();
-
-        // Pedidos salvos (mostra no grid de pedidos)
-        public ObservableCollection<Pedido> PedidosSalvos { get; } = new ObservableCollection<Pedido>();
+        private bool _bloqueado;
 
         // Cache completo dos pedidos pra filtrar
         private List<Pedido> _cachePedidos = new List<Pedido>();
 
         private string _debugStatus;
-        public string DebugStatus
-        {
-            get => _debugStatus;
-            set { _debugStatus = value; OnPropertyChanged(); }
-        }
 
         // Filtro buscar pedidos
         private string _filtroPedidos;
-        public string FiltroPedidos
-        {
-            get => _filtroPedidos;
-            set { _filtroPedidos = value; OnPropertyChanged(); }
-        }
 
-        private bool _bloqueado;
-        public bool Bloqueado
-        {
-            get => _bloqueado;
-            set { _bloqueado = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
+        private FormaPagamento _formaPagamento;
 
-        // Pedido selecionado (grid de pedidos salvos)
-        private Pedido _pedidoSelecionadoSalvo;
-        public Pedido PedidoSelecionadoSalvo
-        {
-            get => _pedidoSelecionadoSalvo;
-            set
-            {
-                _pedidoSelecionadoSalvo = value;
-                OnPropertyChanged();
-
-                if (_pedidoSelecionadoSalvo != null)
-                    CarregarPedidoSalvoNaTela(_pedidoSelecionadoSalvo);
-
-                AtualizarCanExecute();
-                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
-            }
-        }
-
-        //Excluir pedido selecionado
-        public Pedido PedidoSelecionado
-        {
-            get => _pedidoSelecionado;
-            set
-            {
-                _pedidoSelecionado = value;
-                OnPropertyChanged();
-                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
-            }
-        }
-        private Pedido _pedidoSelecionado;
-
-        public RelayCommand ExcluirPedidoCommand { get; }
+        private PedidoItem _itemSelecionado;
 
         // Pedido atual (em edição/visualização)
         private Pedido _pedidoAtual = new Pedido();
-        public Pedido PedidoAtual
-        {
-            get => _pedidoAtual;
-            set
-            {
-                _pedidoAtual = value ?? new Pedido();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Total));
-            }
-        }
+
+        private Pedido _pedidoSelecionado;
+
+        // Pedido selecionado (grid de pedidos salvos)
+        private Pedido _pedidoSelecionadoSalvo;
 
         // Campos do cabeçalho do pedido (bindings dos combos)
         private Pessoa _pessoaSelecionada;
-        public Pessoa PessoaSelecionada
-        {
-            get => _pessoaSelecionada;
-            set { _pessoaSelecionada = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        private FormaPagamento _formaPagamento;
-        public FormaPagamento FormaPagamento
-        {
-            get => _formaPagamento;
-            set { _formaPagamento = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        public Array FormasPagamento => Enum.GetValues(typeof(FormaPagamento));
 
         // Adição de item
         private Produto _produtoSelecionado;
-        public Produto ProdutoSelecionado
-        {
-            get => _produtoSelecionado;
-            set { _produtoSelecionado = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
 
         private int _quantidade = 1;
-        public int Quantidade
-        {
-            get => _quantidade;
-            set
-            {
-                _quantidade = value < 1 ? 1 : value;
-                OnPropertyChanged();
-                AtualizarCanExecute();
-            }
-        }
-
-        private PedidoItem _itemSelecionado;
-        public PedidoItem ItemSelecionado
-        {
-            get => _itemSelecionado;
-            set { _itemSelecionado = value; OnPropertyChanged(); AtualizarCanExecute(); }
-        }
-
-        // Total: usa LINQ dentro do Model (Pedido.ValorTotal -> Itens.Sum)
-        public decimal Total => PedidoAtual.ValorTotal();
-
-        // Commands
-        public RelayCommand RecarregarCombosCommand { get; }
-        public RelayCommand AtualizarPedidosCommand { get; }
-        public RelayCommand BuscarPedidosCommand { get; }
-        public RelayCommand LimparBuscaPedidosCommand { get; }
-
-        public RelayCommand NovoPedidoCommand { get; }
-        public RelayCommand AdicionarItemCommand { get; }
-        public RelayCommand RemoverItemCommand { get; }
-        public RelayCommand FinalizarCommand { get; }
 
         public PedidosViewModel()
         {
@@ -184,34 +74,166 @@ namespace WpfApp.ViewModels
             NovoPedido();
         }
 
+        public RelayCommand AdicionarItemCommand { get; }
+
+        public RelayCommand AtualizarPedidosCommand { get; }
+
+        public bool Bloqueado
+        {
+            get => _bloqueado;
+            set { _bloqueado = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public RelayCommand BuscarPedidosCommand { get; }
+
+        public string DebugStatus
+        {
+            get => _debugStatus;
+            set { _debugStatus = value; OnPropertyChanged(); }
+        }
+
+        public RelayCommand ExcluirPedidoCommand { get; }
+
+        public string FiltroPedidos
+        {
+            get => _filtroPedidos;
+            set { _filtroPedidos = value; OnPropertyChanged(); }
+        }
+
+        public RelayCommand FinalizarCommand { get; }
+
+        public FormaPagamento FormaPagamento
+        {
+            get => _formaPagamento;
+            set { _formaPagamento = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public Array FormasPagamento => Enum.GetValues(typeof(FormaPagamento));
+
+        public PedidoItem ItemSelecionado
+        {
+            get => _itemSelecionado;
+            set { _itemSelecionado = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        // Itens do pedido atual (mostra no grid de itens)
+        public ObservableCollection<PedidoItem> Itens { get; } = new ObservableCollection<PedidoItem>();
+
+        public RelayCommand LimparBuscaPedidosCommand { get; }
+
+        public RelayCommand NovoPedidoCommand { get; }
+
+        public Pedido PedidoAtual
+        {
+            get => _pedidoAtual;
+            set
+            {
+                _pedidoAtual = value ?? new Pedido();
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+
+        //Excluir pedido selecionado
+        public Pedido PedidoSelecionado
+        {
+            get => _pedidoSelecionado;
+            set
+            {
+                _pedidoSelecionado = value;
+                OnPropertyChanged();
+                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
+            }
+        }
+
+        public Pedido PedidoSelecionadoSalvo
+        {
+            get => _pedidoSelecionadoSalvo;
+            set
+            {
+                _pedidoSelecionadoSalvo = value;
+                OnPropertyChanged();
+
+                if (_pedidoSelecionadoSalvo != null)
+                    CarregarPedidoSalvoNaTela(_pedidoSelecionadoSalvo);
+
+                AtualizarCanExecute();
+                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
+            }
+        }
+
+        // Pedidos salvos (mostra no grid de pedidos)
+        public ObservableCollection<Pedido> PedidosSalvos { get; } = new ObservableCollection<Pedido>();
+
+        // Combos
+        public ObservableCollection<Pessoa> Pessoas { get; } = new ObservableCollection<Pessoa>();
+        public Pessoa PessoaSelecionada
+        {
+            get => _pessoaSelecionada;
+            set { _pessoaSelecionada = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+
+        public ObservableCollection<Produto> Produtos { get; } = new ObservableCollection<Produto>();
+        public Produto ProdutoSelecionado
+        {
+            get => _produtoSelecionado;
+            set { _produtoSelecionado = value; OnPropertyChanged(); AtualizarCanExecute(); }
+        }
+        public int Quantidade
+        {
+            get => _quantidade;
+            set
+            {
+                _quantidade = value < 1 ? 1 : value;
+                OnPropertyChanged();
+                AtualizarCanExecute();
+            }
+        }
+        // Commands
+        public RelayCommand RecarregarCombosCommand { get; }
+
+        public RelayCommand RemoverItemCommand { get; }
+
+        // Total:  (Pedido.ValorTotal -> Itens.Sum)
+        public decimal Total => PedidoAtual.ValorTotal();
+
+
         // ======== LOAD ========
-
-        private void CarregarCombos()
+        //Adicionar item ao pedido atual
+        private void AdicionarItem()
         {
-            Pessoas.Clear();
-            foreach (var p in _pessoaService.GetAll())
-                Pessoas.Add(p);
+            if (ProdutoSelecionado == null) return;
 
-            Produtos.Clear();
-            foreach (var pr in _produtoService.GetAll())
-                Produtos.Add(pr);
+            var existente = Itens.FirstOrDefault(i => i.Produto != null && i.Produto.Id == ProdutoSelecionado.Id);
+            if (existente != null)
+            {
+                // Força refresh substituindo o item
+                var index = Itens.IndexOf(existente);
+                Itens[index] = new PedidoItem
+                {
+                    Produto = existente.Produto,
+                    Quantidade = existente.Quantidade + Quantidade
+                };
+            }
+            else
+            {
+                Itens.Add(new PedidoItem
+                {
+                    Produto = ProdutoSelecionado,
+                    Quantidade = Quantidade
+                });
+            }
 
-            DebugStatus = $"Combos ok. Pessoas: {Pessoas.Count} | Produtos: {Produtos.Count}";
+            ProdutoSelecionado = null;
+            Quantidade = 1;
+
+            PedidoAtual.Itens = Itens.ToList();
+            OnPropertyChanged(nameof(Total));
+
+            DebugStatus = "Item adicionado. Total: " + Total.ToString("C");
         }
 
-        private void CarregarPedidosSalvos()
-        {
-            _cachePedidos = _pedidoService.GetAll();
-
-            PedidosSalvos.Clear();
-            foreach (var ped in _cachePedidos)
-                PedidosSalvos.Add(ped);
-
-            DebugStatus = $"Pedidos carregados: {PedidosSalvos.Count} | JSON: {Paths.PedidosJson}";
-        }
-
-        // ======== FILTRO ========
-
+        //Aplicar filtro na lista de pedidos salvos
         private void AplicarFiltroPedidos()
         {
             var termo = (FiltroPedidos ?? "").Trim();
@@ -239,46 +261,30 @@ namespace WpfApp.ViewModels
             DebugStatus = $"Filtro aplicado: {PedidosSalvos.Count} pedido(s).";
         }
 
-        private void LimparFiltroPedidos()
+        //Atualiza o CanExecute de todos os comandos que dependem de estado
+        private void AtualizarCanExecute()
         {
-            FiltroPedidos = "";
-
-            PedidosSalvos.Clear();
-            foreach (var p in _cachePedidos)
-                PedidosSalvos.Add(p);
-
-            DebugStatus = $"Filtro limpo: {PedidosSalvos.Count} pedido(s).";
+            AdicionarItemCommand.RaiseCanExecuteChanged();
+            RemoverItemCommand.RaiseCanExecuteChanged();
+            FinalizarCommand.RaiseCanExecuteChanged();
+            ExcluirPedidoCommand.RaiseCanExecuteChanged();
         }
 
-        // ======== NOVO / CARREGAR PEDIDO ========
-
-        private void NovoPedido()
+        //Carrega pessoas e produtos para os combos
+        private void CarregarCombos()
         {
-            Bloqueado = false;
+            Pessoas.Clear();
+            foreach (var p in _pessoaService.GetAll())
+                Pessoas.Add(p);
 
-            // Pedido novo (não salvo)
-            PedidoAtual = new Pedido
-            {
-                DataVenda = DateTime.Now,
-                Status = StatusPedido.Pendente
-            };
+            Produtos.Clear();
+            foreach (var pr in _produtoService.GetAll())
+                Produtos.Add(pr);
 
-            PessoaSelecionada = null;
-            FormaPagamento = default(FormaPagamento);
-
-            ProdutoSelecionado = null;
-            Quantidade = 1;
-
-            Itens.Clear();
-            ItemSelecionado = null;
-
-            PedidoSelecionadoSalvo = null;
-            PedidoSelecionado = null;
-
-            OnPropertyChanged(nameof(Total));
-            DebugStatus = "Novo pedido iniciado.";
+            DebugStatus = $"Combos ok. Pessoas: {Pessoas.Count} | Produtos: {Produtos.Count}";
         }
 
+        //Carrega um pedido salvo na tela para visualização/edição
         private void CarregarPedidoSalvoNaTela(Pedido pedido)
         {
             if (pedido == null) return;
@@ -329,74 +335,19 @@ namespace WpfApp.ViewModels
                 : $"Pedido #{clone.Id} carregado (pendente).";
         }
 
-        // ======== ITENS ========
-
-        private bool PodeAdicionarItem()
+        //Carrega os pedidos salvos do serviço
+        private void CarregarPedidosSalvos()
         {
-            if (Bloqueado) return false;
-            if (ProdutoSelecionado == null) return false;
-            if (Quantidade < 1) return false;
-            return true;
+            _cachePedidos = _pedidoService.GetAll();
+
+            PedidosSalvos.Clear();
+            foreach (var ped in _cachePedidos)
+                PedidosSalvos.Add(ped);
+
+            DebugStatus = $"Pedidos carregados: {PedidosSalvos.Count} | JSON: {Paths.PedidosJson}";
         }
 
-        private void AdicionarItem()
-        {
-            if (ProdutoSelecionado == null) return;
-
-            var existente = Itens.FirstOrDefault(i => i.Produto != null && i.Produto.Id == ProdutoSelecionado.Id);
-            if (existente != null)
-            {
-                // Força refresh substituindo o item
-                var index = Itens.IndexOf(existente);
-                Itens[index] = new PedidoItem
-                {
-                    Produto = existente.Produto,
-                    Quantidade = existente.Quantidade + Quantidade
-                };
-            }
-            else
-            {
-                Itens.Add(new PedidoItem
-                {
-                    Produto = ProdutoSelecionado,
-                    Quantidade = Quantidade
-                });
-            }
-
-            ProdutoSelecionado = null;
-            Quantidade = 1;
-
-            PedidoAtual.Itens = Itens.ToList();
-            OnPropertyChanged(nameof(Total));
-
-            DebugStatus = "Item adicionado. Total: " + Total.ToString("C");
-        }
-
-        private bool PodeRemoverItem()
-        {
-            if (Bloqueado) return false;
-            return ItemSelecionado != null;
-        }
-
-        private void RemoverItem()
-        {
-            if (ItemSelecionado == null) return;
-
-            Itens.Remove(ItemSelecionado);
-            ItemSelecionado = null;
-
-            PedidoAtual.Itens = Itens.ToList();
-            OnPropertyChanged(nameof(Total));
-
-            DebugStatus = "Item removido. Total: " + Total.ToString("C");
-        }
-
-        private bool PodeExcluirPedido()
-        {
-            // precisa ter um pedido selecionado no grid de pedidos salvos
-            return PedidoSelecionadoSalvo != null;
-        }
-
+        //Excluir pedido selecionado
         private void ExcluirPedido()
         {
             try
@@ -412,11 +363,6 @@ namespace WpfApp.ViewModels
 
                 // remove do cache (senão filtro/refresh traz de volta)
                 _cachePedidos = _cachePedidos.Where(p => p.Id != id).ToList();
-
-                // Se você tiver no service um método próprio, use ele aqui:
-                // _pedidoService.Delete(id);
-                // ou:
-                // _pedidoService.SaveAll(_cachePedidos);
 
                 // Fallback: sobrescreve o JSON diretamente (funciona mesmo sem Delete/SaveAll no service)
                 var json = JsonConvert.SerializeObject(_cachePedidos, Formatting.Indented);
@@ -438,16 +384,7 @@ namespace WpfApp.ViewModels
             }
         }
 
-        // ======== FINALIZAR ========
-
-        private bool PodeFinalizar()
-        {
-            if (Bloqueado) return false;
-            if (PessoaSelecionada == null) return false;
-            if (Itens.Count == 0) return false;
-            return true;
-        }
-
+        //Finaliza o pedido atual e salva
         private void Finalizar()
         {
             try
@@ -480,12 +417,92 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private void AtualizarCanExecute()
+        // ======== FILTRO ========
+        private void LimparFiltroPedidos()
         {
-            AdicionarItemCommand.RaiseCanExecuteChanged();
-            RemoverItemCommand.RaiseCanExecuteChanged();
-            FinalizarCommand.RaiseCanExecuteChanged();
-            ExcluirPedidoCommand.RaiseCanExecuteChanged();
+            FiltroPedidos = "";
+
+            PedidosSalvos.Clear();
+            foreach (var p in _cachePedidos)
+                PedidosSalvos.Add(p);
+
+            DebugStatus = $"Filtro limpo: {PedidosSalvos.Count} pedido(s).";
         }
+
+        // ======== NOVO / CARREGAR PEDIDO ========
+
+        private void NovoPedido()
+        {
+            Bloqueado = false;
+
+            // Pedido novo (não salvo)
+            PedidoAtual = new Pedido
+            {
+                DataVenda = DateTime.Now,
+                Status = StatusPedido.Pendente
+            };
+
+            PessoaSelecionada = null;
+            FormaPagamento = default(FormaPagamento);
+
+            ProdutoSelecionado = null;
+            Quantidade = 1;
+
+            Itens.Clear();
+            ItemSelecionado = null;
+
+            PedidoSelecionadoSalvo = null;
+            PedidoSelecionado = null;
+
+            OnPropertyChanged(nameof(Total));
+            DebugStatus = "Novo pedido iniciado.";
+        }
+
+        // ======== ITENS ========
+
+        //Valida se pode adicionar item ao pedido atual
+        private bool PodeAdicionarItem()
+        {
+            if (Bloqueado) return false;
+            if (ProdutoSelecionado == null) return false;
+            if (Quantidade < 1) return false;
+            return true;
+        }
+
+        //Valida se pode excluir o pedido selecionado
+        private bool PodeExcluirPedido()
+        {
+            // precisa ter um pedido selecionado no grid de pedidos salvos
+            return PedidoSelecionadoSalvo != null;
+        }
+        //Valida se pode finalizar o pedido atual
+        private bool PodeFinalizar()
+        {
+            if (Bloqueado) return false;
+            if (PessoaSelecionada == null) return false;
+            if (Itens.Count == 0) return false;
+            return true;
+        }
+        //Valida se pode remover item do pedido atual
+        private bool PodeRemoverItem()
+        {
+            if (Bloqueado) return false;
+            return ItemSelecionado != null;
+        }
+
+        //Remove item selecionado do pedido atual
+        private void RemoverItem()
+        {
+            if (ItemSelecionado == null) return;
+
+            Itens.Remove(ItemSelecionado);
+            ItemSelecionado = null;
+
+            PedidoAtual.Itens = Itens.ToList();
+            OnPropertyChanged(nameof(Total));
+
+            DebugStatus = "Item removido. Total: " + Total.ToString("C");
+        }
+       
     }
 }

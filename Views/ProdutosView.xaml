@@ -82,7 +82,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Editor + ações CRUD -->
+        <!-- Editor + ações criar, salvar, incuir, excluir, deletar e atualizar -->
         <GroupBox Grid.Row="3" Header="Cadastro / Edição" Padding="10">
             <Grid>
                 <Grid.ColumnDefinitions>
