@@ -8,8 +8,11 @@
    ```bash
    git clone https://github.com/marlonagner/WpfApp.git
 
-Abra o projeto no Visual Studio e execute o arquivo  WpfApp.sln como Solution
-ou abra o WpfAppcompleto pela IDE JetBrains Ride
+
+  Execute o projeto pela IDE
+  
+  Abra o projeto no Visual Studio ou  e execute o arquivo  WpfApp.sln como Solution
+  ou abra o projeto completo  WpfApp pela IDE JetBrains Ride
 
   ## 📦 Dependências 
 
@@ -24,26 +27,18 @@ ou abra o WpfAppcompleto pela IDE JetBrains Ride
   
   Newtonsoft.Json Version 13.0.4 - Estável
   
-  --O pacote é utilizado para serialização e desserialização dos dados em JSON.
+  O pacote é utilizado para serialização e desserialização dos dados em JSON.
   Instale pelo Gerenciador De Pacotes Do Nuget em Sua IDE ou:
 
-        https://www.nuget.org/packages/newtonsoft.json/ 
+    https://www.nuget.org/packages/newtonsoft.json/ 
 
  Ou via Terminal 
    
     Install-Package Newtonsoft.Json -Version 13.0.4
   
-  Restaure as dependências:
-
-      dotnet restore
-
-  
-   
 ### 🔧 Pré-requisitos
-- Windows 10 ou superior  
 
-  Execute o projeto pela IDE
-  
+- Windows 10 ou superior  
 - IDE **Visual Studio Community**
   
       https://visualstudio.microsoft.com/pt-br/vs/community/  
@@ -51,10 +46,6 @@ ou abra o WpfAppcompleto pela IDE JetBrains Ride
 - **JetBrains Rider**
    
       https://www.jetbrains.com/pt-br/rider/download/?section=windows
-
-
----
-
 
 ## 📋 Funcionalidades
 
