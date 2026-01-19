@@ -1,20 +1,20 @@
-# 🖥️ WpfApp – Sistema de Vendas com Cadastro de Pessoas, Produtos e Pedidos
+# 🖥️ WpfApp – Sistema de Vendas com Cadastro de Pessoas, Produtos e Pedidos.
 
 ## ▶️ Como Executar:
 
-#### ▶️ Passos para execução
+#### ▶️ Passos para execução.
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/marlonagner/WpfApp.git
 
 
-  Execute o projeto pela IDE
+  Execute o projeto pela IDE!
   
-  Abra o projeto no Visual Studio ou  e execute o arquivo  WpfApp.sln como Solution
-  ou abra o projeto completo  WpfApp pela IDE JetBrains Ride
+  Abra o projeto no Visual Studio  e execute o arquivo  WpfApp.sln como Solution
+  ou abra o projeto completo  WpfApp pela IDE JetBrains Ride.
 
-  ## 📦 Dependências 
+  ## 📦 Dependências:
 
  .NET Framework  4.8
       Instale Pelo Site:
@@ -25,18 +25,18 @@
   
     winget install Microsoft.NetFx48
   
-  Newtonsoft.Json Version 13.0.4 - Estável
+  Newtonsoft.Json Version 13.0.4 - Estável.
   
   O pacote é utilizado para serialização e desserialização dos dados em JSON.
   Instale pelo Gerenciador De Pacotes Do Nuget em Sua IDE ou:
 
     https://www.nuget.org/packages/newtonsoft.json/ 
 
- Ou via Terminal 
+ Ou via Terminal.
    
     Install-Package Newtonsoft.Json -Version 13.0.4
   
-### 🔧 Pré-requisitos
+### 🔧 Pré-requisitos:
 
 - Windows 10 ou superior  
 - IDE **Visual Studio Community**
@@ -47,7 +47,7 @@
    
       https://www.jetbrains.com/pt-br/rider/download/?section=windows
 
-## 📋 Funcionalidades
+## 📋 Funcionalidades:
 
 ### 👤 Pessoas
 - Cadastro de pessoas
@@ -67,11 +67,12 @@
 ### 🧾 Pedidos
 - Seleção de pessoa
 - Adição de **múltiplos produtos com quantidade**
-- Cálculo automático do **valor total** (LINQ)
+- Cálculo automático do **valor total** 
 - Seleção da forma de pagamento
 - Finalização do pedido (bloqueia edição)
 - Listagem de pedidos salvos
 - Busca de pedidos por **nome da pessoa ou Id**
+- Exclui um pedido feito por engano
 - Persistência em arquivo `pedidos.json`
 
 ## 🏗️ Arquitetura do Projeto
