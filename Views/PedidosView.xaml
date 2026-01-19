@@ -31,6 +31,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Column="0"
@@ -53,19 +54,25 @@
                     <Button Grid.Column="3"
                             Content="Atualizar lista"
                             Width="120"
+                            Margin="0,0,10,0"
                             Command="{Binding AtualizarPedidosCommand}"/>
+
+                    <Button Grid.Column="4"
+                            Content="Excluir"
+                            Width="90"
+                            Command="{Binding ExcluirPedidoCommand}"/>
                 </Grid>
 
-                <!-- DataGrid: vamos capturar SelectionChanged no code-behind -->
+                <!-- DataGrid: bind direto no VM -->
                 <DataGrid x:Name="dgPedidosSalvos"
                           Grid.Row="1"
                           Margin="0,8,0,0"
                           ItemsSource="{Binding PedidosSalvos}"
+                          SelectedItem="{Binding PedidoSelecionadoSalvo}"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
                           SelectionUnit="FullRow"
-                          SelectionMode="Single"
-                          SelectionChanged="DgPedidosSalvos_SelectionChanged">
+                          SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
                         <DataGridTextColumn Header="Data" Binding="{Binding DataVenda}" Width="160"/>
@@ -170,21 +177,19 @@
                             Command="{Binding RemoverItemCommand}"/>
                 </Grid>
 
+                <!-- Grid de ITENS: colunas corretas de PedidoItem -->
                 <DataGrid Grid.Row="2"
                           ItemsSource="{Binding Itens}"
                           SelectedItem="{Binding ItemSelecionado}"
                           AutoGenerateColumns="False"
                           IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding DataVenda}" Width="160"/>
-                        <DataGridTextColumn Header="Pessoa" Binding="{Binding Pessoa.Nome}" Width="150"/>
-                        <DataGridTextColumn Header="Pagamento" Binding="{Binding FormaPagamento}" Width="120"/>
-                        <DataGridTextColumn Header="QtdItens" Binding="{Binding QtdItens}" Width="80"/>
-                        <DataGridTextColumn Header="Produtos" Binding="{Binding ResumoProdutos}" Width="*"/>
-                       <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120"/>
-                        
-
+                        <DataGridTextColumn Header="Produto" Binding="{Binding Produto.Nome}" Width="*"/>
+                        <DataGridTextColumn Header="Qtd" Binding="{Binding Quantidade}" Width="80"/>
+                        <DataGridTextColumn Header="Valor Unit." Binding="{Binding Produto.Valor}" Width="120"/>
+                        <DataGridTextColumn Header="Subtotal"
+                                            Binding="{Binding SubtotalTexto}"
+                                            Width="120"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

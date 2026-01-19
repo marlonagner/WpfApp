@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using WpfApp.Models;
 using WpfApp.Models.Enums;
 using WpfApp.Services;
@@ -63,8 +65,26 @@ namespace WpfApp.ViewModels
 
                 if (_pedidoSelecionadoSalvo != null)
                     CarregarPedidoSalvoNaTela(_pedidoSelecionadoSalvo);
+
+                AtualizarCanExecute();
+                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
             }
         }
+
+        //Excluir pedido selecionado
+        public Pedido PedidoSelecionado
+        {
+            get => _pedidoSelecionado;
+            set
+            {
+                _pedidoSelecionado = value;
+                OnPropertyChanged();
+                ExcluirPedidoCommand?.RaiseCanExecuteChanged();
+            }
+        }
+        private Pedido _pedidoSelecionado;
+
+        public RelayCommand ExcluirPedidoCommand { get; }
 
         // Pedido atual (em edição/visualização)
         private Pedido _pedidoAtual = new Pedido();
@@ -78,8 +98,6 @@ namespace WpfApp.ViewModels
                 OnPropertyChanged(nameof(Total));
             }
         }
-        
-        
 
         // Campos do cabeçalho do pedido (bindings dos combos)
         private Pessoa _pessoaSelecionada;
@@ -151,6 +169,7 @@ namespace WpfApp.ViewModels
             AdicionarItemCommand = new RelayCommand(AdicionarItem, PodeAdicionarItem);
             RemoverItemCommand = new RelayCommand(RemoverItem, PodeRemoverItem);
             FinalizarCommand = new RelayCommand(Finalizar, PodeFinalizar);
+            ExcluirPedidoCommand = new RelayCommand(ExcluirPedido, PodeExcluirPedido);
 
             Itens.CollectionChanged += (s, e) =>
             {
@@ -254,6 +273,7 @@ namespace WpfApp.ViewModels
             ItemSelecionado = null;
 
             PedidoSelecionadoSalvo = null;
+            PedidoSelecionado = null;
 
             OnPropertyChanged(nameof(Total));
             DebugStatus = "Novo pedido iniciado.";
@@ -371,6 +391,53 @@ namespace WpfApp.ViewModels
             DebugStatus = "Item removido. Total: " + Total.ToString("C");
         }
 
+        private bool PodeExcluirPedido()
+        {
+            // precisa ter um pedido selecionado no grid de pedidos salvos
+            return PedidoSelecionadoSalvo != null;
+        }
+
+        private void ExcluirPedido()
+        {
+            try
+            {
+                if (PedidoSelecionadoSalvo == null) return;
+
+                var id = PedidoSelecionadoSalvo.Id;
+
+                // remove da lista em tela
+                var toRemoveTela = PedidosSalvos.FirstOrDefault(p => p.Id == id);
+                if (toRemoveTela != null)
+                    PedidosSalvos.Remove(toRemoveTela);
+
+                // remove do cache (senão filtro/refresh traz de volta)
+                _cachePedidos = _cachePedidos.Where(p => p.Id != id).ToList();
+
+                // Se você tiver no service um método próprio, use ele aqui:
+                // _pedidoService.Delete(id);
+                // ou:
+                // _pedidoService.SaveAll(_cachePedidos);
+
+                // Fallback: sobrescreve o JSON diretamente (funciona mesmo sem Delete/SaveAll no service)
+                var json = JsonConvert.SerializeObject(_cachePedidos, Formatting.Indented);
+                File.WriteAllText(Paths.PedidosJson, json);
+
+                DebugStatus = $"Pedido #{id} excluído com sucesso.";
+
+                // limpa seleção e tela
+                PedidoSelecionadoSalvo = null;
+                PedidoSelecionado = null;
+
+                NovoPedido();
+                AtualizarCanExecute();
+                ExcluirPedidoCommand.RaiseCanExecuteChanged();
+            }
+            catch (Exception ex)
+            {
+                DebugStatus = "ERRO ao excluir pedido: " + ex.Message;
+            }
+        }
+
         // ======== FINALIZAR ========
 
         private bool PodeFinalizar()
@@ -418,6 +485,7 @@ namespace WpfApp.ViewModels
             AdicionarItemCommand.RaiseCanExecuteChanged();
             RemoverItemCommand.RaiseCanExecuteChanged();
             FinalizarCommand.RaiseCanExecuteChanged();
+            ExcluirPedidoCommand.RaiseCanExecuteChanged();
         }
     }
 }
