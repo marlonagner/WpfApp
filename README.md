@@ -8,31 +8,36 @@
    ```bash
    git clone https://github.com/marlonagner/WpfApp.git
 
-Abra o projeto no Visual Studio ou JetBrains Ride
+Abra o projeto no Visual Studio e execute o arquivo  WpfApp.sln como Solution
+ou abra o WpfAppcompleto pela IDE JetBrains Ride
 
-  ## 📦 Dependências
+  ## 📦 Dependências 
 
-   - .NET Framework  4.8**    
-      Pelo Site:
-         https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net48
+ .NET Framework  4.8
+      Instale Pelo Site:
+   
+    https://dotnet.microsoft.com/pt-br/download/dotnet-framework/net48
          
-  Via Terminal: 
+  Ou Via Terminal: 
   
     winget install Microsoft.NetFx48
-
-
-   Newtonsoft.Json**
+  
+  Newtonsoft.Json Version 13.0.4 - Estável
+  
+  --O pacote é utilizado para serialização e desserialização dos dados em JSON.
+  Instale pelo Gerenciador De Pacotes Do Nuget em Sua IDE ou:
 
         https://www.nuget.org/packages/newtonsoft.json/ 
-   Via Terminal Powershell em Modo Administrador:
-    
-    Install-Package Newtonsoft.Json -Version 13.0.5
+
+ Ou via Terminal 
+   
+    Install-Package Newtonsoft.Json -Version 13.0.4
   
   Restaure as dependências:
 
       dotnet restore
 
-  O pacote é utilizado para serialização e desserialização dos dados em JSON.
+  
    
 ### 🔧 Pré-requisitos
 - Windows 10 ou superior  
