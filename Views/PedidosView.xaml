@@ -5,91 +5,88 @@
     <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Status -->
+            <RowDefinition Height="220"/>
+            <!-- Pedidos salvos -->
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <!-- Pedido atual -->
             <RowDefinition Height="*"/>
+            <!-- Itens -->
             <RowDefinition Height="Auto"/>
+            <!-- Rodapé -->
         </Grid.RowDefinitions>
 
         <!-- STATUS -->
         <TextBlock Grid.Row="0"
                    Text="{Binding DebugStatus}"
-                   Margin="0,0,0,8"/>
+                   Margin="0,0,0,6"/>
 
         <!-- PEDIDOS SALVOS -->
-        <GroupBox Grid.Row="1" Header="Pedidos salvos" Padding="10">
+        <GroupBox Grid.Row="1" Header="Pedidos salvos" Padding="8" Margin="0,0,0,6">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Barra buscar -->
-                <Grid>
+                <Grid Grid.Row="0" Margin="0,0,0,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Column="0"
-                             Margin="0,0,10,0"
+                             Margin="0,0,8,0"
                              Text="{Binding FiltroPedidos, UpdateSourceTrigger=PropertyChanged}"
                              ToolTip="Digite nome da pessoa ou Id do pedido"/>
 
                     <Button Grid.Column="1"
                             Content="Buscar"
-                            Width="90"
-                            Margin="0,0,10,0"
+                            Width="85"
+                            Margin="0,0,8,0"
                             Command="{Binding BuscarPedidosCommand}"/>
 
                     <Button Grid.Column="2"
                             Content="Limpar"
-                            Width="90"
-                            Margin="0,0,10,0"
+                            Width="85"
+                            Margin="0,0,8,0"
                             Command="{Binding LimparBuscaPedidosCommand}"/>
 
                     <Button Grid.Column="3"
-                            Content="Atualizar lista"
-                            Width="120"
-                            Margin="0,0,10,0"
+                            Content="Atualizar"
+                            Width="95"
                             Command="{Binding AtualizarPedidosCommand}"/>
-
-                    <Button Grid.Column="4"
-                            Content="Excluir"
-                            Width="90"
-                            Command="{Binding ExcluirPedidoCommand}"/>
                 </Grid>
 
-                <!-- DataGrid: bind direto no ViewModel-->
-                <DataGrid x:Name="dgPedidosSalvos"
-                          Grid.Row="1"
-                          Margin="0,8,0,0"
+                <DataGrid Grid.Row="1"
                           ItemsSource="{Binding PedidosSalvos}"
-                          SelectedItem="{Binding PedidoSelecionadoSalvo}"
+                          SelectedItem="{Binding PedidoSelecionadoSalvo, Mode=TwoWay}"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
-                          SelectionUnit="FullRow"
-                          SelectionMode="Single">
+                          CanUserAddRows="False"
+                          SelectionUnit="FullRow">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
-                        <DataGridTextColumn Header="Data" Binding="{Binding DataVenda}" Width="160"/>
-                        <DataGridTextColumn Header="Pessoa" Binding="{Binding Pessoa.Nome}" Width="*"/>
-                        <DataGridTextColumn Header="Pagamento" Binding="{Binding FormaPagamento}" Width="120"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120"/>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="55"/>
+                        <DataGridTextColumn Header="Data" Binding="{Binding DataVenda}" Width="150"/>
+                        <DataGridTextColumn Header="Pessoa" Binding="{Binding Pessoa.Nome}" Width="140"/>
+                        <DataGridTextColumn Header="Pagamento" Binding="{Binding FormaPagamento}" Width="110"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90"/>
+
+                        <!-- ✅ aqui aparece os produtos -->
                         <DataGridTextColumn Header="Produtos" Binding="{Binding ResumoProdutos}" Width="*"/>
-                        <DataGridTextColumn Header="Valor"
-                                            Binding="{Binding TotalPedidoTexto}"
-                                            Width="120"/>
+
+                        <!-- ✅ aqui aparece o total -->
+                        <DataGridTextColumn Header="Total" Binding="{Binding TotalPedidoTexto}" Width="90"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </GroupBox>
 
-        <!-- CABEÇALHO -->
-        <GroupBox Grid.Row="2" Header="Pedido (atual)" Padding="10" Margin="0,12,0,0">
+        <!-- PEDIDO (ATUAL) -->
+        <GroupBox Grid.Row="2" Header="Pedido (atual)" Padding="8" Margin="0,0,0,6">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -97,54 +94,48 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <StackPanel Grid.Column="0" Margin="0,0,8,0">
                     <TextBlock Text="Pessoa"/>
                     <ComboBox ItemsSource="{Binding Pessoas}"
                               SelectedItem="{Binding PessoaSelecionada}"
                               DisplayMemberPath="Nome"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                <StackPanel Grid.Column="1" Margin="0,0,8,0">
                     <TextBlock Text="Forma de pagamento"/>
                     <ComboBox ItemsSource="{Binding FormasPagamento}"
                               SelectedItem="{Binding FormaPagamento}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Orientation="Vertical">
-                    <Button Content="Recarregar Pessoas/Produtos"
-                            Width="180"
-                            Margin="0,18,0,8"
+                    <Button Content="Recarregar"
+                            Width="120"
+                            Margin="0,18,0,6"
                             Command="{Binding RecarregarCombosCommand}"/>
 
-                    <Button Content="Novo Pedido"
-                            Width="180"
-                            Margin="0,0,0,8"
+                    <Button Content="Novo"
+                            Width="120"
+                            Margin="0,0,0,6"
                             Command="{Binding NovoPedidoCommand}"/>
 
                     <Button Content="Finalizar"
-                            Width="180"
+                            Width="120"
                             Command="{Binding FinalizarCommand}"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
 
         <!-- ITENS -->
-        <GroupBox Grid.Row="3" Header="Itens do Pedido" Padding="10" Margin="0,12,0,12">
+        <GroupBox Grid.Row="3" Header="Itens do Pedido" Padding="8" Margin="0,0,0,6">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- DEBUG -->
-                <TextBlock Grid.Row="0"
-                           FontWeight="Bold"
-                           Text="{Binding Itens.Count, StringFormat=Itens no grid: {0}}"
-                           Margin="0,0,0,6"/>
-
-                <Grid Grid.Row="1" Margin="0,0,0,10">
+                <!-- Adição -->
+                <Grid Grid.Row="0" Margin="0,0,0,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1*"/>
@@ -152,48 +143,46 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
                         <TextBlock Text="Produto"/>
                         <ComboBox ItemsSource="{Binding Produtos}"
                                   SelectedItem="{Binding ProdutoSelecionado}"
                                   DisplayMemberPath="Nome"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                    <StackPanel Grid.Column="1" Margin="0,0,8,0">
                         <TextBlock Text="Quantidade"/>
                         <TextBox Text="{Binding Quantidade, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
 
                     <Button Grid.Column="2"
                             Content="Adicionar"
-                            Width="100"
-                            Margin="0,18,10,0"
+                            Width="90"
+                            Margin="0,18,8,0"
                             Command="{Binding AdicionarItemCommand}"/>
 
                     <Button Grid.Column="3"
                             Content="Remover"
-                            Width="100"
+                            Width="90"
                             Margin="0,18,0,0"
                             Command="{Binding RemoverItemCommand}"/>
                 </Grid>
 
-                <!-- Grid de ITENS: colunas corretas de PedidoItem -->
-                <DataGrid Grid.Row="2"
+                <DataGrid Grid.Row="1"
                           ItemsSource="{Binding Itens}"
                           SelectedItem="{Binding ItemSelecionado}"
                           AutoGenerateColumns="False"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Produto" Binding="{Binding Produto.Nome}" Width="*"/>
-                        <DataGridTextColumn Header="Qtd" Binding="{Binding Quantidade}" Width="80"/>
-                        <DataGridTextColumn Header="Valor Unit." Binding="{Binding Produto.Valor}" Width="120"/>
-                        <DataGridTextColumn Header="Subtotal"
-                                            Binding="{Binding SubtotalTexto}"
-                                            Width="120"/>
+                        <DataGridTextColumn Header="Qtd" Binding="{Binding Quantidade}" Width="70"/>
+                        <DataGridTextColumn Header="Valor Unit." Binding="{Binding Produto.Valor}" Width="110"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" Width="110"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <TextBlock Grid.Row="3"
+                <TextBlock Grid.Row="2"
                            HorizontalAlignment="Right"
                            FontSize="16"
                            FontWeight="Bold"

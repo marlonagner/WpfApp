@@ -10,5 +10,17 @@
     "Endereco": "MARINGA",
     "Id": 2,
     "Nome": "BENNER"
+  },
+  {
+    "Cpf": "98765432165",
+    "Endereco": "DAS INDUSTRIAS",
+    "Id": 3,
+    "Nome": "PUGA"
+  },
+  {
+    "Cpf": "14725836925",
+    "Endereco": "DAS INDUSTRIAS",
+    "Id": 4,
+    "Nome": "LARISSA"
   }
 ]

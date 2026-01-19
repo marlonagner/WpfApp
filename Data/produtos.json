@@ -10,5 +10,17 @@
     "Id": 2,
     "Nome": "DIA DE ALEGRIA",
     "Valor": 10.000
+  },
+  {
+    "Codigo": "A3",
+    "Id": 3,
+    "Nome": "BAcon",
+    "Valor": 20.00
+  },
+  {
+    "Codigo": "A4",
+    "Id": 4,
+    "Nome": "PUIPI",
+    "Valor": 10.000
   }
 ]
