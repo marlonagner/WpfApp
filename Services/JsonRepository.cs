@@ -34,7 +34,7 @@ namespace WpfApp.Services
                 return new List<T>();
             }
         }
-        // Método para salvar a lista de items no diretório ou criar um novo caso não 
+        // Método para salvar a lista de items no diretório ou criar um novo caso não exista 
         //convertendo e serializando em Json
         public void Save(List<T> items)
         {

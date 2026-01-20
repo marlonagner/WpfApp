@@ -1,19 +1,19 @@
 [
   {
-    "DataVenda": "2026-01-19T01:41:11.7658092-03:00",
+    "DataVenda": "2026-01-20T13:21:36.8152828-03:00",
     "FormaPagamento": 0,
     "Id": 1,
     "Itens": [
       {
         "Produto": {
-          "Codigo": "A10101010",
+          "Codigo": "AAA",
           "Id": 1,
-          "Nome": "NOVO EMPREGO",
-          "Valor": 5.000
+          "Nome": "DEVJUNIOR",
+          "Valor": 10000.00
         },
         "Quantidade": 1,
-        "Subtotal": 5.000,
-        "SubtotalTexto": "R$ 5,00"
+        "Subtotal": 10000.00,
+        "SubtotalTexto": "R$ 10.000,00"
       }
     ],
     "Pessoa": {
@@ -23,36 +23,8 @@
       "Nome": "MARLON AGNER"
     },
     "QtdItens": 1,
-    "ResumoProdutos": "NOVO EMPREGO x1",
+    "ResumoProdutos": "DEVJUNIOR x1",
     "Status": 1,
-    "TotalPedidoTexto": "R$ 5,00"
-  },
-  {
-    "DataVenda": "2026-01-19T01:43:22.6717126-03:00",
-    "FormaPagamento": 3,
-    "Id": 2,
-    "Itens": [
-      {
-        "Produto": {
-          "Codigo": "A10101011",
-          "Id": 2,
-          "Nome": "BACON",
-          "Valor": 2.0
-        },
-        "Quantidade": 1,
-        "Subtotal": 2.0,
-        "SubtotalTexto": "R$ 2,00"
-      }
-    ],
-    "Pessoa": {
-      "Cpf": "12345678945",
-      "Endereco": "DAS INDUSTRIAS",
-      "Id": 2,
-      "Nome": "PUGA"
-    },
-    "QtdItens": 1,
-    "ResumoProdutos": "BACON x1",
-    "Status": 1,
-    "TotalPedidoTexto": "R$ 2,00"
+    "TotalPedidoTexto": "R$ 10.000,00"
   }
 ]

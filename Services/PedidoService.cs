@@ -14,6 +14,7 @@ namespace WpfApp.Services
         {
             _repo = new JsonRepository<Pedido>(Paths.PedidosJson);
         }
+
         // Metodo para adicionar novo pedido, aplicando também as condicionais e filtros
         public Pedido Add(Pedido novo)
         {
@@ -29,7 +30,7 @@ namespace WpfApp.Services
             return novo;
         }
 
-        // Pega todos os pedidos da lista
+        // Pega todos os pedidos da lista 
         public List<Pedido> GetAll()
         {
             return _repo.Load()

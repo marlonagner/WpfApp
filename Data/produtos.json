@@ -1,14 +1,8 @@
 [
   {
-    "Codigo": "A10101010",
+    "Codigo": "AAA",
     "Id": 1,
-    "Nome": "NOVO EMPREGO",
-    "Valor": 5.000
-  },
-  {
-    "Codigo": "A10101011",
-    "Id": 2,
-    "Nome": "BACON",
-    "Valor": 2.0
+    "Nome": "DEVJUNIOR",
+    "Valor": 10000.00
   }
 ]

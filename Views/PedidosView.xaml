@@ -87,7 +87,7 @@
                         <DataGridTextColumn Header="Produtos" Binding="{Binding ResumoProdutos}" Width="*"/>
 
                         <!-- ✅ total do pedido -->
-                        <DataGridTextColumn Header="Total" Binding="{Binding TotalPedidoTexto}" Width="90"/>
+                        <DataGridTextColumn Header="ValorUnit" Binding="{Binding TotalPedidoTexto}" Width="90"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
